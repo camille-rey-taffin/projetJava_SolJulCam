@@ -87,7 +87,7 @@ class BibliothecaireTest {
 	/*
 	 * 
 	 * Partie concernee par le devoir
-	 * Voici le décompte des notes:
+	 * Voici le dï¿½compte des notes:
 	 * 1pts par test OK==>10pts
 	 * 2 pour pour la mis en place de l'heritage
 	 * 1pt pour la javadoc
@@ -97,8 +97,8 @@ class BibliothecaireTest {
 	 * 1pt pour la creation d'exceptions
 	 * 1pt: utilisation de l'encapsulation
 	 * 1pt: utilisation de git
-	 * 1pt: lisibilité du code
-	 * -1pt: méthode avec plus de 3 arguments
+	 * 1pt: lisibilitï¿½ du code
+	 * -1pt: mï¿½thode avec plus de 3 arguments
 	 * -1pt: classe de plus de 200 lignes
 	 * -1pt: plus de 2 boucles for
 	 * -1pt: trop d'utilisation de if
@@ -108,13 +108,13 @@ class BibliothecaireTest {
 	@Test
 	void testPreterUnLivre() {
 		//GIVEN
-		Auteur auteur=new Auteur("Romain Gary");
+		Auteur auteur=new Auteur("Romain");
 		String titre = "La Vie devant soi";
 		Livre livre=new Livre(auteur, titre);
 		ArrayList<Livre> livres=new ArrayList<>();
 		livres.add(livre);
 		bibliothecaire.ajouterLivre(livre);
-		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig", "étudiante");
+		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig", "ï¿½tudiante");
 		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7); 
 		
 		//WHEN
@@ -137,7 +137,7 @@ class BibliothecaireTest {
 		ArrayList<Livre> livres=new ArrayList<>();
 		livres.add(livre);
 		bibliothecaire.ajouterLivre(livre);
-		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig", "étudiante");
+		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig", "ï¿½tudiante");
 		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7);
 		bibliothecaire.preterLivre(livre, emprunteur, date_rendu);
 		
@@ -158,7 +158,7 @@ class BibliothecaireTest {
 		ArrayList<Livre> livres=new ArrayList<>();
 		livres.add(livre);
 		bibliothecaire.ajouterLivre(livre);
-		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig", "étudiante");
+		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig", "ï¿½tudiante");
 		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7);
 		bibliothecaire.preterLivre(livre, emprunteur, date_rendu);
 		
