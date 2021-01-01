@@ -190,7 +190,27 @@ class BibliothecaireTest {
 	
 	@Test
 	void testListerNbLivresEmpruntesPourUnAuteur() {
-		fail("Not yet implemented");
+		//GIVEN
+		Auteur auteur=new Auteur("Romain Gary");
+		Livre livre=new Livre(auteur, "La Vie devant soi");
+		bibliothecaire.ajouterLivre(livre);
+		Etudiant etudiant=new Etudiant("Poder", "Solveig", 21903145);
+		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7);
+		Auteur auteur2=new Auteur("Elena Ferrante");
+		Livre livre2=new Livre(auteur2, "L'Amie prodigieuse");
+		bibliothecaire.ajouterLivre(livre2);
+		Emprunteur emprunteur=new Emprunteur("Garnier", "Johanna");
+		bibliothecaire.preterLivre(livre, etudiant, date_rendu);
+		bibliothecaire.preterLivre(livre2, emprunteur, date_rendu);
+		
+		//WHEN
+		bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary");
+		
+		//THEN
+		assertNotNull(bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary"));
+		assertTrue(bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary").contains(livre));
+		assertFalse(bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary").contains(livre2));
+		assertTrue(bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary").size() == 1);
 	}
 	
 	@Test

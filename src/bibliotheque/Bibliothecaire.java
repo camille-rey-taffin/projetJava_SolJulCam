@@ -107,7 +107,17 @@ public class Bibliothecaire {
 		return livres;
 	}
 	
-
+	public ArrayList<Livre> ListerNbLivresEmpruntesPourUnAuteur(String auteurTest) {
+		ArrayList<Livre> livresAuteur = new ArrayList<Livre>();
+		ArrayList<Livre> livres = listerLivresEmpruntes();
+		for (Livre livre : livres) {
+			if (livre.getAuteur().getNom() == auteurTest) {
+					livresAuteur.add(livre);
+			}
+		}
+		return livresAuteur;
+	}
+	
 	public HashMap<Auteur, ArrayList<Livre>> getCatalogue() {
 		return catalogue;
 	}
