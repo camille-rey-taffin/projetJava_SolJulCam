@@ -1,4 +1,4 @@
-package traitementTextes.bibliotheque;
+package bibliotheque;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -10,10 +10,9 @@ public class Emprunteur {
 	private  String situationPro;
 	private HashMap<Livre, LocalDate> livresEmpruntes;
 
-	public Emprunteur(String nom, String prenom, String situationPro) {
+	public Emprunteur(String nom, String prenom) {
 		this.setNom(nom);
 		this.setPrenom(prenom);
-		this.setSituationPro(situationPro);
 	}
 
 	public String getNom() {
