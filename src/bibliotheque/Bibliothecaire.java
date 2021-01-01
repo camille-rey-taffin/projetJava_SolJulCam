@@ -45,14 +45,7 @@ public class Bibliothecaire {
 
 	
 	public void preterLivre(Livre livre, Emprunteur emprunteur, LocalDate date) {
-		if (Objects.nonNull(emprunteur.getLivresEmpruntes())) {
-			emprunteur.getLivresEmpruntes().put(livre, date);
-		}
-		else {
-			HashMap<Livre, LocalDate> livresEmpruntes = new HashMap<>();
-			livresEmpruntes.put(livre, date);
-			emprunteur.setLivresEmpruntes(livresEmpruntes);
-		}
+		emprunteur.getLivresEmpruntes().put(livre, date);
 		if (Objects.nonNull(getEmprunteurs())){
 			if (!getEmprunteurs().contains(emprunteur)) {
 				getEmprunteurs().add(emprunteur);

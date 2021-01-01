@@ -13,6 +13,7 @@ public class Emprunteur {
 	public Emprunteur(String nom, String prenom) {
 		this.setNom(nom);
 		this.setPrenom(prenom);
+		this.livresEmpruntes = new HashMap<Livre, LocalDate> ();
 	}
 
 	public String getNom() {
