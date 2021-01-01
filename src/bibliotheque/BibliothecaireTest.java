@@ -185,7 +185,21 @@ class BibliothecaireTest {
 	
 	@Test
 	void testListerLivresAnglais() {
-		fail("Not yet implemented");
+		//GIVEN
+		Auteur auteurfr=new Auteur("Romain Gary");
+		Livre livrefr=new Livre(auteurfr, "La Vie devant soi");
+		bibliothecaire.ajouterLivre(livrefr);
+		Auteur auteuren=new Auteur("Neil Gaiman");
+		LivreAnglais livreen=new LivreAnglais(auteuren, "American Gods", "Michel Pagel");
+		bibliothecaire.ajouterLivre(livreen);
+		
+		//WHEN
+		bibliothecaire.listerLivresAnglais();
+		
+		//THEN
+		assertNotNull(bibliothecaire.listerLivresAnglais());
+		assertTrue(bibliothecaire.listerLivresAnglais().contains(livreen));
+		assertFalse(bibliothecaire.listerLivresAnglais().contains(livrefr));
 	}
 	
 	@Test

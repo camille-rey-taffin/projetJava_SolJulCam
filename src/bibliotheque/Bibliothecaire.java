@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
+import java.util.Map.Entry;
 import java.time.LocalDate;
 
 public class Bibliothecaire {
@@ -102,6 +102,18 @@ public class Bibliothecaire {
 		for (Emprunteur emprunteur : emprunteurs) {
 			for (Map.Entry<Livre, LocalDate> emprunt : emprunteur.getLivresEmpruntes().entrySet()){
 				livres.add(emprunt.getKey());
+			}
+		}
+		return livres;
+	}
+	
+	public ArrayList<Livre> listerLivresAnglais() {
+		ArrayList<Livre> livres = new ArrayList<Livre>();
+		for (Entry<Auteur, ArrayList<Livre>> a : getCatalogue().entrySet()) {
+			for (Livre livre : a.getValue()) {
+				if (livre instanceof LivreAnglais) {
+					livres.add(livre);
+				}
 			}
 		}
 		return livres;
