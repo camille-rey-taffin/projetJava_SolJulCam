@@ -25,7 +25,6 @@ class BibliothecaireTest {
 	@AfterEach
 	void tearDown() throws Exception {
 	}
-
 	
 	@Test
 	void testAfficherOeuvresAuteur() {
@@ -46,7 +45,6 @@ class BibliothecaireTest {
 		assertTrue(listeOeuvres.contains(titre));
 		System.out.println(listeOeuvres);
 	}
-	
 	
 	@Test
 	void testAjouterLivre() {
@@ -81,36 +79,11 @@ class BibliothecaireTest {
 		assertEquals(bibliothecaire.getCatalogue().get(nouveauLivre.getAuteur()).size(), 0);
 	}
 
-
-	
-	
-	/*
-	 * 
-	 * Partie concernee par le devoir
-	 * Voici le décompte des notes:
-	 * 1pts par test OK==>10pts
-	 * 2 pour pour la mis en place de l'heritage
-	 * 1pt pour la javadoc
-	 * 1pt pour le polymorphisme et la surchage
-	 * 1pt pour la reutilisation de l'existant
-	 * 1pt pour la gestion des exceptions
-	 * 1pt pour la creation d'exceptions
-	 * 1pt: utilisation de l'encapsulation
-	 * 1pt: utilisation de git
-	 * 1pt: lisibilité du code
-	 * -1pt: méthode avec plus de 3 arguments
-	 * -1pt: classe de plus de 200 lignes
-	 * -1pt: plus de 2 boucles for
-	 * -1pt: trop d'utilisation de if
-	 * 
-	 */
-	
 	@Test
 	void testPreterUnLivre() {
 		//GIVEN
 		Auteur auteur=new Auteur("Romain Gary");
-		String titre = "La Vie devant soi";
-		Livre livre=new Livre(auteur, titre);
+		Livre livre=new Livre(auteur, "La Vie devant soi");
 		bibliothecaire.ajouterLivre(livre);
 		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig");
 		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7); 
@@ -130,8 +103,7 @@ class BibliothecaireTest {
 	void testRelancerEmprunteurEnRetard() {
 		//GIVEN
 		Auteur auteur=new Auteur("Romain Gary");
-		String titre = "La Vie devant soi";
-		Livre livre=new Livre(auteur, titre);
+		Livre livre=new Livre(auteur, "La Vie devant soi");
 		bibliothecaire.ajouterLivre(livre);
 		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig");
 		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7);
@@ -149,8 +121,7 @@ class BibliothecaireTest {
 	void testListerPersonnesAyantEmpruntesUnLivre() {
 		//GIVEN
 		Auteur auteur=new Auteur("Romain Gary");
-		String titre = "La Vie devant soi";
-		Livre livre=new Livre(auteur, titre);
+		Livre livre=new Livre(auteur, "La Vie devant soi");
 		bibliothecaire.ajouterLivre(livre);
 		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig");
 		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7);
@@ -168,14 +139,12 @@ class BibliothecaireTest {
 	void testListerLivresEmpruntesParEtudiant() {
 		//GIVEN
 		Auteur auteur=new Auteur("Romain Gary");
-		String titre = "La Vie devant soi";
-		Livre livre=new Livre(auteur, titre);
+		Livre livre=new Livre(auteur, "La Vie devant soi");
 		bibliothecaire.ajouterLivre(livre);
 		Etudiant etudiant=new Etudiant("Poder", "Solveig", 21903145);
 		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7);
 		Auteur auteur2=new Auteur("Elena Ferrante");
-		String titre2 = "L'Amie prodigieuse";
-		Livre livre2=new Livre(auteur2, titre2);
+		Livre livre2=new Livre(auteur2, "L'Amie prodigieuse");
 		bibliothecaire.ajouterLivre(livre2);
 		Emprunteur emprunteur=new Emprunteur("Garnier", "Johanna");
 		bibliothecaire.preterLivre(livre, etudiant, date_rendu);
@@ -194,14 +163,12 @@ class BibliothecaireTest {
 	void testListerLivresEmpruntes() {
 		//GIVEN
 		Auteur auteur=new Auteur("Romain Gary");
-		String titre = "La Vie devant soi";
-		Livre livre=new Livre(auteur, titre);
+		Livre livre=new Livre(auteur, "La Vie devant soi");
 		bibliothecaire.ajouterLivre(livre);
 		Etudiant etudiant=new Etudiant("Poder", "Solveig", 21903145);
 		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7);
 		Auteur auteur2=new Auteur("Elena Ferrante");
-		String titre2 = "L'Amie prodigieuse";
-		Livre livre2=new Livre(auteur2, titre2);
+		Livre livre2=new Livre(auteur2, "L'Amie prodigieuse");
 		bibliothecaire.ajouterLivre(livre2);
 		Emprunteur emprunteur=new Emprunteur("Garnier", "Johanna");
 		bibliothecaire.preterLivre(livre, etudiant, date_rendu);
