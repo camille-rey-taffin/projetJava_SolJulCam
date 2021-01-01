@@ -1,5 +1,7 @@
 package traitementTextes.bibliotheque;
 
+// ceci est un test coucou
+
 import java.io.Serializable;
 
 public class Auteur implements Serializable {
