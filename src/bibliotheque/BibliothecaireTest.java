@@ -85,39 +85,24 @@ class BibliothecaireTest {
 		Auteur auteur=new Auteur("Romain Gary");
 		Livre livre=new Livre(auteur, "La Vie devant soi");
 		bibliothecaire.ajouterLivre(livre);
-		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig");
+		Emprunteur emprunteur1=new Emprunteur("Poder", "Solveig");
+		Emprunteur emprunteur2=new Emprunteur("Caron", "Juliette");
 		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7); 
 		
 		//WHEN
-		bibliothecaire.preterLivre(livre, emprunteur, date_rendu);
+		bibliothecaire.preterLivre(livre, emprunteur1, date_rendu);
+		bibliothecaire.preterLivre(livre, emprunteur2, date_rendu);
 		
 		//THEN
-		assertNotNull(emprunteur.getLivresEmpruntes().get(livre));
-		assertTrue(emprunteur.getLivresEmpruntes().get(livre).equals(date_rendu));
+		assertNotNull(emprunteur1.getLivresEmpruntes().get(livre));
+		assertTrue(emprunteur1.getLivresEmpruntes().get(livre).equals(date_rendu));
 		assertNotNull(bibliothecaire.getEmprunteurs());
-		assertTrue(bibliothecaire.getEmprunteurs().contains(emprunteur));
+		assertTrue(bibliothecaire.getEmprunteurs().contains(emprunteur1));
+		assertTrue(bibliothecaire.getEmprunteurs().contains(emprunteur2));
 	}
 	
 	@Test
 	void testRelancerEmprunteurEnRetard() {
-		//GIVEN
-		Auteur auteur=new Auteur("Romain Gary");
-		Livre livre=new Livre(auteur, "La Vie devant soi");
-		bibliothecaire.ajouterLivre(livre);
-		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig");
-		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7);
-		bibliothecaire.preterLivre(livre, emprunteur, date_rendu);
-		
-		//WHEN
-		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.RelancerEmprunteurEnRetard(bibliothecaire.getEmprunteurs());
-		
-		//THEN
-		assertFalse(retards.isEmpty());
-		assertTrue(retards.get(emprunteur).contains(livre));
-	}
-	
-	@Test
-	void testRelancerEmprunteurEnRetard2() {
 		//GIVEN
 		Auteur auteur=new Auteur("Romain Gary");
 		Livre livre=new Livre(auteur, "La Vie devant soi");
@@ -131,7 +116,35 @@ class BibliothecaireTest {
 		
 		//THEN
 		assertTrue(retards.isEmpty());
-		//assertTrue(retards.get(emprunteur).contains(livre));
+	}
+	
+	@Test
+	void testRelancerEmprunteurEnRetard2() {
+		//GIVEN
+		Auteur auteur=new Auteur("Romain Gary");
+		Livre livre1=new Livre(auteur, "La Vie devant soi");
+		bibliothecaire.ajouterLivre(livre1);		
+		Auteur auteur2=new Auteur("Camille Rey");
+		Livre livre2=new Livre(auteur2, "La Vie devant soi");
+		bibliothecaire.ajouterLivre(livre2);
+		Emprunteur emprunteur1=new Emprunteur("Poder", "Solveig");
+		Emprunteur emprunteur2=new Emprunteur("Caron", "Juliette");
+		bibliothecaire.preterLivre(livre1, emprunteur1, LocalDate.of(2021, Month.SEPTEMBER, 7));
+		bibliothecaire.preterLivre(livre2, emprunteur1, LocalDate.of(2020, Month.SEPTEMBER, 7));
+		bibliothecaire.preterLivre(livre1, emprunteur2, LocalDate.of(2020, Month.SEPTEMBER, 7));
+		bibliothecaire.preterLivre(livre2, emprunteur2, LocalDate.of(2020, Month.SEPTEMBER, 7));
+		
+		//WHEN
+		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.RelancerEmprunteurEnRetard(bibliothecaire.getEmprunteurs());
+		
+		//THEN
+		assertFalse(retards.isEmpty());
+		assertNotNull(retards.get(emprunteur1));
+		assertNotNull(retards.get(emprunteur2));
+		assertFalse(retards.get(emprunteur1).contains(livre1));
+		assertTrue(retards.get(emprunteur1).contains(livre2));
+		assertTrue(retards.get(emprunteur2).contains(livre2));
+		assertTrue(retards.get(emprunteur2).contains(livre2));
 	}
 	
 	@Test
