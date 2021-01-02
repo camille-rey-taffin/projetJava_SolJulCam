@@ -92,7 +92,6 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre, emprunteur, date_rendu);
 		
 		//THEN
-		assertNotNull(emprunteur.getLivresEmpruntes());
 		assertNotNull(emprunteur.getLivresEmpruntes().get(livre));
 		assertTrue(emprunteur.getLivresEmpruntes().get(livre).equals(date_rendu));
 		assertNotNull(bibliothecaire.getEmprunteurs());
@@ -113,8 +112,26 @@ class BibliothecaireTest {
 		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.RelancerEmprunteurEnRetard(bibliothecaire.getEmprunteurs());
 		
 		//THEN
-		assertNotNull(retards);
+		assertFalse(retards.isEmpty());
 		assertTrue(retards.get(emprunteur).contains(livre));
+	}
+	
+	@Test
+	void testRelancerEmprunteurEnRetard2() {
+		//GIVEN
+		Auteur auteur=new Auteur("Romain Gary");
+		Livre livre=new Livre(auteur, "La Vie devant soi");
+		bibliothecaire.ajouterLivre(livre);
+		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig");
+		LocalDate date_rendu = LocalDate.of(2021, Month.SEPTEMBER, 7);
+		bibliothecaire.preterLivre(livre, emprunteur, date_rendu);
+		
+		//WHEN
+		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.RelancerEmprunteurEnRetard(bibliothecaire.getEmprunteurs());
+		
+		//THEN
+		assertTrue(retards.isEmpty());
+		//assertTrue(retards.get(emprunteur).contains(livre));
 	}
 	
 	@Test
