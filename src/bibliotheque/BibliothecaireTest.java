@@ -151,16 +151,18 @@ class BibliothecaireTest {
 		Auteur auteur=new Auteur("Romain Gary");
 		Livre livre=new Livre(auteur, "La Vie devant soi");
 		bibliothecaire.ajouterLivre(livre);
-		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig");
-		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7);
-		bibliothecaire.preterLivre(livre, emprunteur, date_rendu);
+		Emprunteur emprunteur1=new Emprunteur("Poder", "Solveig");
+		Emprunteur emprunteur2=new Emprunteur("Caron", "Juliette");
+		bibliothecaire.preterLivre(livre, emprunteur1, LocalDate.of(2021, Month.SEPTEMBER, 7));
+		bibliothecaire.preterLivre(livre, emprunteur2, LocalDate.of(2021, Month.SEPTEMBER, 7));
 		
 		//WHEN
 		bibliothecaire.listerPersonnesAyantEmprunteUnLivre();
 		
 		//THEN
-		assertNotNull(bibliothecaire.listerPersonnesAyantEmprunteUnLivre());
-		assertTrue(bibliothecaire.listerPersonnesAyantEmprunteUnLivre().contains(emprunteur));
+		assertFalse(bibliothecaire.listerPersonnesAyantEmprunteUnLivre().isEmpty());
+		assertTrue(bibliothecaire.listerPersonnesAyantEmprunteUnLivre().contains(emprunteur1));
+		assertTrue(bibliothecaire.listerPersonnesAyantEmprunteUnLivre().contains(emprunteur2));
 	}
 	
 	@Test
