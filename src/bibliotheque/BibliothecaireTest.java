@@ -132,7 +132,6 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre1, emprunteur1, LocalDate.of(2021, Month.SEPTEMBER, 7));
 		bibliothecaire.preterLivre(livre2, emprunteur1, LocalDate.of(2020, Month.SEPTEMBER, 7));
 		bibliothecaire.preterLivre(livre1, emprunteur2, LocalDate.of(2020, Month.SEPTEMBER, 7));
-		bibliothecaire.preterLivre(livre2, emprunteur2, LocalDate.of(2020, Month.SEPTEMBER, 7));
 		
 		//WHEN
 		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.RelancerEmprunteurEnRetard(bibliothecaire.getEmprunteurs());
@@ -143,8 +142,7 @@ class BibliothecaireTest {
 		assertNotNull(retards.get(emprunteur2));
 		assertFalse(retards.get(emprunteur1).contains(livre1));
 		assertTrue(retards.get(emprunteur1).contains(livre2));
-		assertTrue(retards.get(emprunteur2).contains(livre2));
-		assertTrue(retards.get(emprunteur2).contains(livre2));
+		assertTrue(retards.get(emprunteur2).contains(livre1));
 	}
 	
 	@Test
