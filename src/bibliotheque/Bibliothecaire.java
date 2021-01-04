@@ -153,12 +153,14 @@ public class Bibliothecaire {
 				}
 			}
 		}
-		if (!livresTheme.isEmpty()) {
-		int index = randomGenerator.nextInt(livresTheme.size());
-		Livre choix = livresTheme.get(index);
-		return choix;
+		
+		try {
+			int index = randomGenerator.nextInt(livresTheme.size());
+			Livre choix = livresTheme.get(index);
+			return choix;
+		} catch (IllegalArgumentException e) {
+			return null;
 		}
-		return null;
 	}
 	
 	public void EnvoyerAmendeRetardaire() {
