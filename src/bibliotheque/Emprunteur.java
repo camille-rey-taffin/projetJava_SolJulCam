@@ -9,11 +9,15 @@ public class Emprunteur {
 	private  String prenom;
 	private  String situationPro;
 	private HashMap<Livre, LocalDate> livresEmpruntes;
+	private HashMap<String, String> messagerie;
+	private double solde;
 
+	
 	public Emprunteur(String nom, String prenom) {
 		this.setNom(nom);
 		this.setPrenom(prenom);
 		this.livresEmpruntes = new HashMap<Livre, LocalDate> ();
+		this.setMessagerie(new HashMap<String, String>());
 	}
 
 	public String getNom() {
@@ -48,4 +52,27 @@ public class Emprunteur {
 		this.livresEmpruntes = livresEmpruntes;
 	}
 
+	public HashMap<String, String> getMessagerie() {
+		return messagerie;
+	}
+
+	public void setMessagerie(HashMap<String, String> messagerie) {
+		this.messagerie = messagerie;
+	}
+	
+	public void addMessage(String objet, String message) {
+		this.messagerie.put(objet, message);
+	}
+
+	public double getSolde() {
+		return solde;
+	}
+
+	public void setSolde(double solde) {
+		this.solde = solde;
+	}
+	
+	public void changeSolde(double amende) {
+		this.solde += amende;
+	}
 }

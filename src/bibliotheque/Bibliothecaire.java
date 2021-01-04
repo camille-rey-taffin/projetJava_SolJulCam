@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+
 import java.util.Map.Entry;
 import java.time.LocalDate;
 
@@ -11,9 +12,11 @@ public class Bibliothecaire {
 
 	private HashMap<Auteur, ArrayList<Livre>> catalogue;
 	private ArrayList<Emprunteur> emprunteurs;
+	private double caisse;
 	
 	public Bibliothecaire(HashMap<Auteur, ArrayList<Livre>> catalogue) {
 		this.catalogue=catalogue;
+		this.setCaisse(0);
 		
 	}
 
@@ -42,7 +45,6 @@ public class Bibliothecaire {
 			getCatalogue().get(ancienLivre.getAuteur()).remove(ancienLivre);
 		}
 	}
-
 	
 	public void preterLivre(Livre livre, Emprunteur emprunteur, LocalDate date) {
 		emprunteur.getLivresEmpruntes().put(livre, date);
@@ -57,7 +59,7 @@ public class Bibliothecaire {
 		}
 	}
 	
-	public HashMap<Emprunteur, ArrayList<Livre>> RelancerEmprunteurEnRetard(ArrayList<Emprunteur> emprunteurs) {
+	public HashMap<Emprunteur, ArrayList<Livre>> ListerEmprunteursEnRetard(ArrayList<Emprunteur> emprunteurs) {
 		LocalDate aujourdhui = LocalDate.now();
 		HashMap<Emprunteur, ArrayList<Livre>> retards = new HashMap<Emprunteur, ArrayList<Livre>>();
 		for (Emprunteur emprunteur : emprunteurs) {
@@ -75,6 +77,17 @@ public class Bibliothecaire {
 			}
 		}
 		return retards;
+	}
+	
+	public void RelancerEmprunteurEnRetard(ArrayList<Emprunteur> emprunteurs) {
+		HashMap<Emprunteur, ArrayList<Livre>> retards = ListerEmprunteursEnRetard(emprunteurs);
+		String livresRetard = "";
+		for (Emprunteur emprunteur : retards.keySet()) {
+			for (Livre livre : retards.get(emprunteur)) {
+				livresRetard += "\n- " + livre.getTitre();
+			}
+			emprunteur.addMessage("retard", "vous avez des livres en retard : " + livresRetard);
+		}
 	}
 	
 	public ArrayList<Emprunteur> listerPersonnesAyantEmprunteUnLivre() {
@@ -130,6 +143,18 @@ public class Bibliothecaire {
 		return livresAuteur;
 	}
 	
+	public void EnvoyerAmendeRetardaire() {
+		HashMap<Emprunteur, ArrayList<Livre>> retards = ListerEmprunteursEnRetard(emprunteurs);
+		for (Emprunteur emprunteur : retards.keySet()) {
+			emprunteur.changeSolde(2 * retards.get(emprunteur).size());
+		}
+	}
+	
+	public void EncaisserAmendeRetardaire(Emprunteur retardataire, double versement) {
+		retardataire.changeSolde(-versement);
+		this.changeCaisse(versement);
+		}
+	
 	public HashMap<Auteur, ArrayList<Livre>> getCatalogue() {
 		return catalogue;
 	}
@@ -144,6 +169,18 @@ public class Bibliothecaire {
 
 	public void setEmprunteurs(ArrayList<Emprunteur> emprunteurs) {
 		this.emprunteurs = emprunteurs;
+	}
+
+	public double getCaisse() {
+		return caisse;
+	}
+
+	public void setCaisse(double caisse) {
+		this.caisse = caisse;
+	}
+	
+	public void changeCaisse(double montant) {
+		this.caisse += montant;
 	}
 
 }

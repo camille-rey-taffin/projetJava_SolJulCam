@@ -43,7 +43,7 @@ class BibliothecaireTest {
 		//THEN
 		assertNotNull(listeOeuvres);
 		assertTrue(listeOeuvres.contains(titre));
-		System.out.println(listeOeuvres);
+		//System.out.println(listeOeuvres);
 	}
 	
 	@Test
@@ -102,7 +102,7 @@ class BibliothecaireTest {
 	}
 	
 	@Test
-	void testRelancerEmprunteurEnRetard() {
+	void testListerEmprunteursEnRetard() {
 		//GIVEN
 		Auteur auteur=new Auteur("Romain Gary");
 		Livre livre=new Livre(auteur, "La Vie devant soi");
@@ -112,14 +112,14 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre, emprunteur, date_rendu);
 		
 		//WHEN
-		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.RelancerEmprunteurEnRetard(bibliothecaire.getEmprunteurs());
+		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.ListerEmprunteursEnRetard(bibliothecaire.getEmprunteurs());
 		
 		//THEN
 		assertTrue(retards.isEmpty());
 	}
 	
 	@Test
-	void testRelancerEmprunteurEnRetard2() {
+	void testListerEmprunteursEnRetard2() {
 		//GIVEN
 		Auteur auteur=new Auteur("Romain Gary");
 		Livre livre1=new Livre(auteur, "La Vie devant soi");
@@ -134,7 +134,7 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre1, emprunteur2, LocalDate.of(2020, Month.SEPTEMBER, 7));
 		
 		//WHEN
-		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.RelancerEmprunteurEnRetard(bibliothecaire.getEmprunteurs());
+		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.ListerEmprunteursEnRetard(bibliothecaire.getEmprunteurs());
 		
 		//THEN
 		assertFalse(retards.isEmpty());
@@ -144,6 +144,28 @@ class BibliothecaireTest {
 		assertTrue(retards.get(emprunteur1).contains(livre2));
 		assertTrue(retards.get(emprunteur2).contains(livre1));
 	}
+	
+	@Test
+	void testRelancerEmprunteurEnRetard() {
+		//GIVEN
+		Auteur auteur=new Auteur("Romain Gary");
+		Livre livre1=new Livre(auteur, "La Vie devant soi");
+		bibliothecaire.ajouterLivre(livre1);		
+		Auteur auteur2=new Auteur("Camille Rey");
+		Livre livre2=new Livre(auteur2, "La Vie devant soi");
+		bibliothecaire.ajouterLivre(livre2);
+		Emprunteur emprunteur1=new Emprunteur("Poder", "Solveig");
+		Emprunteur emprunteur2=new Emprunteur("Caron", "Juliette");
+		bibliothecaire.preterLivre(livre1, emprunteur1, LocalDate.of(2021, Month.SEPTEMBER, 7));
+		bibliothecaire.preterLivre(livre1, emprunteur2, LocalDate.of(2020, Month.SEPTEMBER, 7));
+		
+		//WHEN
+		bibliothecaire.RelancerEmprunteurEnRetard(bibliothecaire.getEmprunteurs());	
+
+		//THEN
+		assertFalse(emprunteur2.getMessagerie().isEmpty());
+		assertTrue(emprunteur2.getMessagerie().containsKey("retard"));
+	}	
 	
 	@Test
 	void testListerPersonnesAyantEmpruntesUnLivre() {
@@ -264,12 +286,43 @@ class BibliothecaireTest {
 	
 	@Test
 	void testEnvoyerAmendeRetardaire() {
-		fail("Not yet implemented");
+		//GIVEN
+		Auteur auteur=new Auteur("Romain Gary");
+		Livre livre1=new Livre(auteur, "La Vie devant soi");
+		bibliothecaire.ajouterLivre(livre1);		
+		Auteur auteur2=new Auteur("Camille Rey");
+		Livre livre2=new Livre(auteur2, "La Vie devant soi");
+		bibliothecaire.ajouterLivre(livre2);
+		Emprunteur emprunteur1=new Emprunteur("Poder", "Solveig");
+		Emprunteur emprunteur2=new Emprunteur("Caron", "Juliette");
+		bibliothecaire.preterLivre(livre1, emprunteur1, LocalDate.of(2021, Month.SEPTEMBER, 7));
+		bibliothecaire.preterLivre(livre1, emprunteur2, LocalDate.of(2020, Month.SEPTEMBER, 7));
+		
+		//WHEN
+		bibliothecaire.EnvoyerAmendeRetardaire();
+		
+		//THEN
+		assertNotNull(emprunteur1.getSolde());
+		assertTrue(emprunteur2.getSolde()>0);
+		assertTrue(emprunteur1.getSolde()==0);
 	}
 	
 	@Test
 	void testEncaisserAmendeRetardaire() {
-		fail("Not yet implemented");
+		//GIVEN
+		Auteur auteur=new Auteur("Romain Gary");
+		Livre livre1=new Livre(auteur, "La Vie devant soi");
+		bibliothecaire.ajouterLivre(livre1);		
+		Emprunteur emprunteur2=new Emprunteur("Caron", "Juliette");
+		bibliothecaire.preterLivre(livre1, emprunteur2, LocalDate.of(2020, Month.SEPTEMBER, 7));
+		bibliothecaire.EnvoyerAmendeRetardaire();
+
+		//WHEN
+		bibliothecaire.EncaisserAmendeRetardaire(emprunteur2, 2.0);
+		
+		//THEN
+		assertTrue(emprunteur2.getSolde()==0);
+		assertTrue(bibliothecaire.getCaisse() == 2);
 	}
 
 }

@@ -13,6 +13,7 @@ public class Livre implements Serializable  {
 	private String resume;
 	private int anneePublication;
 	private int nbTomes;
+	private String theme;
 	
 	public Livre(Auteur auteur,String titre) {
 		this.auteur=auteur;
@@ -71,6 +72,13 @@ public class Livre implements Serializable  {
 	public void setNbTomes(int nbTomes) {
 		this.nbTomes = nbTomes;
 	}
+	
+	public String getTheme() {
+		return resume;
+	}
 
+	public void setTheme(String theme) {
+		this.theme = theme;
+	}
 
 }
