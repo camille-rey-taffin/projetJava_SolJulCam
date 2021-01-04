@@ -17,7 +17,7 @@ public class Bibliothecaire {
 	public Bibliothecaire(HashMap<Auteur, ArrayList<Livre>> catalogue) {
 		this.catalogue=catalogue;
 		this.setCaisse(0);
-		
+		this.emprunteurs = new ArrayList<Emprunteur>();
 	}
 
 	public void ajouterLivre(Livre nouveauLivre) {
@@ -59,7 +59,15 @@ public class Bibliothecaire {
 		}
 	}
 	
-	public HashMap<Emprunteur, ArrayList<Livre>> ListerEmprunteursEnRetard() {
+	public ArrayList<Emprunteur> listerEmprunteurs() {
+		if (Objects.nonNull(getEmprunteurs())){
+			return getEmprunteurs();
+		} else {
+			return new ArrayList<Emprunteur>();
+		}
+	}
+
+	public HashMap<Emprunteur, ArrayList<Livre>> listerEmprunteurs(boolean retard) {
 		LocalDate aujourdhui = LocalDate.now();
 		HashMap<Emprunteur, ArrayList<Livre>> retards = new HashMap<Emprunteur, ArrayList<Livre>>();
 		for (Emprunteur emprunteur : emprunteurs) {
@@ -80,7 +88,7 @@ public class Bibliothecaire {
 	}
 	
 	public void RelancerEmprunteurEnRetard() {
-		HashMap<Emprunteur, ArrayList<Livre>> retards = ListerEmprunteursEnRetard();
+		HashMap<Emprunteur, ArrayList<Livre>> retards = listerEmprunteurs(true);
 		String livresRetard = "";
 		for (Emprunteur emprunteur : retards.keySet()) {
 			for (Livre livre : retards.get(emprunteur)) {
@@ -89,16 +97,9 @@ public class Bibliothecaire {
 			emprunteur.addMessage("retard", "vous avez des livres en retard : " + livresRetard);
 		}
 	}
+
 	
-	public ArrayList<Emprunteur> listerPersonnesAyantEmprunteUnLivre() {
-		if (Objects.nonNull(getEmprunteurs())){
-			return getEmprunteurs();
-		} else {
-			return new ArrayList<Emprunteur>();
-		}
-	}
-	
-	public ArrayList<Livre> listerLivresEmpruntesParEtudiant() {
+	public ArrayList<Livre> listerLivresEmpruntes(Class<EtudiantEmprunteur> cls) {
 		ArrayList<Livre> livres = new ArrayList<Livre>();
 		for (Emprunteur emprunteur : emprunteurs) {
 			if (emprunteur instanceof EtudiantEmprunteur) {
@@ -132,7 +133,7 @@ public class Bibliothecaire {
 		return livresAnglais;
 	}
 	
-	public ArrayList<Livre> ListerNbLivresEmpruntesPourUnAuteur(Auteur auteurFiltre) {
+	public ArrayList<Livre> listerLivresEmpruntes(Auteur auteurFiltre) {
 		ArrayList<Livre> livresAuteur = new ArrayList<Livre>();
 		ArrayList<Livre> livres = listerLivresEmpruntes();
 		for (Livre livre : livres) {
@@ -143,9 +144,8 @@ public class Bibliothecaire {
 		return livresAuteur;
 	}
 	
-	public Livre TrouverLivreSurUnTheme(String theme) {
+	public ArrayList<Livre> listerLivresEmpruntes(String theme) {
 		ArrayList<Livre> livresTheme = new ArrayList<Livre>();
-		Random randomGenerator = new Random();
 		for (Entry<Auteur, ArrayList<Livre>> paire : getCatalogue().entrySet()) {
 			for (Livre livre : paire.getValue()) {
 				if (livre.getTheme() == theme) {
@@ -153,7 +153,12 @@ public class Bibliothecaire {
 				}
 			}
 		}
-		
+		return livresTheme; 
+	}
+	
+	public Livre TrouverLivreSurUnTheme(String theme) {
+		ArrayList<Livre> livresTheme = listerLivresEmpruntes(theme);
+		Random randomGenerator = new Random();
 		try {
 			int index = randomGenerator.nextInt(livresTheme.size());
 			Livre choix = livresTheme.get(index);
@@ -164,7 +169,7 @@ public class Bibliothecaire {
 	}
 	
 	public void EnvoyerAmendeRetardaire() {
-		HashMap<Emprunteur, ArrayList<Livre>> retards = ListerEmprunteursEnRetard();
+		HashMap<Emprunteur, ArrayList<Livre>> retards = listerEmprunteurs(true);
 		for (Emprunteur emprunteur : retards.keySet()) {
 			emprunteur.changeSolde(2 * retards.get(emprunteur).size());
 		}

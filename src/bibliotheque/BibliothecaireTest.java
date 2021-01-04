@@ -113,7 +113,7 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre1, emprunteur, dateFuture);
 		
 		//WHEN
-		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.ListerEmprunteursEnRetard();
+		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.listerEmprunteurs(true);
 		
 		//THEN
 		assertTrue(retards.isEmpty());
@@ -129,7 +129,7 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre1, emprunteur2, datePassee);
 		
 		//WHEN
-		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.ListerEmprunteursEnRetard();
+		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.listerEmprunteurs(true);
 		
 		//THEN
 		assertFalse(retards.isEmpty());
@@ -164,7 +164,7 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre1, emprunteur2, datePassee);
 		
 		//WHEN
-		ArrayList<Emprunteur> emprunteurs = bibliothecaire.listerPersonnesAyantEmprunteUnLivre();
+		ArrayList<Emprunteur> emprunteurs = bibliothecaire.listerEmprunteurs();
 		
 		//THEN
 		assertFalse(emprunteurs.isEmpty());
@@ -182,7 +182,7 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre2, emprunteur1, dateFuture);
 		
 		//WHEN
-		ArrayList<Livre> livresEtudiants = bibliothecaire.listerLivresEmpruntesParEtudiant();
+		ArrayList<Livre> livresEtudiants = bibliothecaire.listerLivresEmpruntes(EtudiantEmprunteur.class);
 		
 		//THEN
 		assertFalse(livresEtudiants.isEmpty());
@@ -226,7 +226,7 @@ class BibliothecaireTest {
 	}
 	
 	@Test
-	void testListerNbLivresEmpruntesPourUnAuteur() {
+	void testListerLivresEmpruntesPourUnAuteur() {
 		//GIVEN
 		bibliothecaire.ajouterLivre(livre1);
 		bibliothecaire.ajouterLivre(livre2);
@@ -238,8 +238,8 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre3, emprunteur2, dateFuture);
 		
 		//WHEN
-		ArrayList<Livre> livresAuteur1 = bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur(auteur2);
-		ArrayList<Livre> livresAuteur2 = bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur(auteur4);
+		ArrayList<Livre> livresAuteur1 = bibliothecaire.listerLivresEmpruntes(auteur2);
+		ArrayList<Livre> livresAuteur2 = bibliothecaire.listerLivresEmpruntes(auteur4);
 		
 		//THEN
 		assertFalse(livresAuteur1.isEmpty());
@@ -254,15 +254,13 @@ class BibliothecaireTest {
 	@Test
 	void testTrouverLivreSurUnTheme() {
 		//GIVEN
-		Auteur auteur=new Auteur("Camille Rey");
-		Livre livre=new Livre(auteur, "Mon super livre");
+		Livre livre=new Livre(auteur1, "Mon super livre");
 		bibliothecaire.ajouterLivre(livre);
-		Auteur auteur2=new Auteur("Juliette Caron");
 		Livre livre2=new Livre(auteur2, "Aladdin court");
 		bibliothecaire.ajouterLivre(livre2);
 		Livre livre3=new Livre(auteur2, "Le petit lapin");
 		bibliothecaire.ajouterLivre(livre3);
-		Livre livre4=new Livre(auteur, "La course folle");
+		Livre livre4=new Livre(auteur1, "La course folle");
 		bibliothecaire.ajouterLivre(livre4);
 		livre.setTheme("biographie");
 		livre2.setTheme("aventure");
