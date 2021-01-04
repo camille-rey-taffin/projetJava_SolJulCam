@@ -232,14 +232,14 @@ class BibliothecaireTest {
 		bibliothecaire.ajouterLivre(livre2);
 		Livre livre3 = new Livre(auteur2, "Soumission");
 		bibliothecaire.ajouterLivre(livre3);
-		//Auteur auteur4 = new Auteur("Charles Dickens");
+		Auteur auteur4 = new Auteur("Charles Dickens");
 		bibliothecaire.preterLivre(livre1, emprunteur1, datePassee);
 		bibliothecaire.preterLivre(livre2, emprunteur2, dateFuture);
 		bibliothecaire.preterLivre(livre3, emprunteur2, dateFuture);
 		
 		//WHEN
-		ArrayList<Livre> livresAuteur1 = bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Michel Houellebecq");
-		ArrayList<Livre> livresAuteur2 = bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Charles Dickens");
+		ArrayList<Livre> livresAuteur1 = bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur(auteur2);
+		ArrayList<Livre> livresAuteur2 = bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur(auteur4);
 		
 		//THEN
 		assertFalse(livresAuteur1.isEmpty());

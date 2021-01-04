@@ -132,11 +132,11 @@ public class Bibliothecaire {
 		return livresAnglais;
 	}
 	
-	public ArrayList<Livre> ListerNbLivresEmpruntesPourUnAuteur(String auteurTest) {
+	public ArrayList<Livre> ListerNbLivresEmpruntesPourUnAuteur(Auteur auteurFiltre) {
 		ArrayList<Livre> livresAuteur = new ArrayList<Livre>();
 		ArrayList<Livre> livres = listerLivresEmpruntes();
 		for (Livre livre : livres) {
-			if (livre.getAuteur().getNom() == auteurTest) {
+			if (livre.getAuteur() == auteurFiltre) {
 					livresAuteur.add(livre);
 			}
 		}
