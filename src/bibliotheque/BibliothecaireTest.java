@@ -14,12 +14,29 @@ import org.junit.jupiter.api.Test;
 class BibliothecaireTest {
 	
 	private Bibliothecaire bibliothecaire;
+	private Auteur auteur1;
+	private Livre livre1;
+	private Auteur auteur2;
+	private Livre livre2;
+	private LocalDate datePassee;
+	private LocalDate dateFuture;
+	private Emprunteur emprunteur1;
+	private Emprunteur emprunteur2;
 
 	@BeforeEach
 	void setUp() throws Exception {
 		
 		HashMap<Auteur, ArrayList<Livre>> catalogue = new HashMap<>();		
-		bibliothecaire=new Bibliothecaire(catalogue);
+		bibliothecaire = new Bibliothecaire(catalogue);
+		auteur1 = new Auteur("Romain Gary");
+		livre1 = new Livre(auteur1, "La Vie devant soi");
+		auteur2 = new Auteur("Michel Houellebecq");
+		livre2 = new Livre(auteur2, "Serotonine");
+		datePassee = LocalDate.of(2020, Month.SEPTEMBER, 7);
+		dateFuture = LocalDate.of(2021, Month.SEPTEMBER, 7);
+		emprunteur1 = new Emprunteur("Poder", "Solveig");
+		emprunteur2 = new Emprunteur("Caron", "Juliette");
+		
 	}
 
 	@AfterEach
@@ -48,54 +65,41 @@ class BibliothecaireTest {
 	
 	@Test
 	void testAjouterLivre() {
-		//GIVEN
-		Auteur auteur=new Auteur("un auteur");
-		String titre = "un titre";
-		Livre livre=new Livre(auteur, titre);
 		
 		//WHEN
-		bibliothecaire.ajouterLivre(livre);
+		bibliothecaire.ajouterLivre(livre1);
 		
 		//THEN
-		assertNotNull(livre.getAuteur());
-		assertNotNull(bibliothecaire.getCatalogue().get(auteur));
-		assertTrue(bibliothecaire.getCatalogue().get(auteur).contains(livre));
+		assertNotNull(bibliothecaire.getCatalogue().get(auteur1));
+		assertTrue(bibliothecaire.getCatalogue().get(auteur1).contains(livre1));
 	}
 
 	@Test
 	void testEnleverLivre() {
 		//GIVEN
-		Auteur auteur = new Auteur("nomAuteur");
-		String titre = "Un titre";
-		Livre nouveauLivre = new Livre(auteur, titre);
-		bibliothecaire.ajouterLivre(nouveauLivre);
+		bibliothecaire.ajouterLivre(livre1);
 		
 		//WHEN
-		bibliothecaire.enleverLivre(nouveauLivre);
+		bibliothecaire.enleverLivre(livre1);
 		
 		//THEN
-		ArrayList<Livre> listeLivres = bibliothecaire.getCatalogue().get(auteur);
-		assertFalse(listeLivres.contains(nouveauLivre));
-		assertEquals(bibliothecaire.getCatalogue().get(nouveauLivre.getAuteur()).size(), 0);
+		ArrayList<Livre> listeLivres = bibliothecaire.getCatalogue().get(auteur1);
+		assertFalse(listeLivres.contains(livre1));
+		assertEquals(bibliothecaire.getCatalogue().get(livre1.getAuteur()).size(), 0);
 	}
 
 	@Test
 	void testPreterUnLivre() {
 		//GIVEN
-		Auteur auteur=new Auteur("Romain Gary");
-		Livre livre=new Livre(auteur, "La Vie devant soi");
-		bibliothecaire.ajouterLivre(livre);
-		Emprunteur emprunteur1=new Emprunteur("Poder", "Solveig");
-		Emprunteur emprunteur2=new Emprunteur("Caron", "Juliette");
-		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7); 
+		bibliothecaire.ajouterLivre(livre1);
 		
 		//WHEN
-		bibliothecaire.preterLivre(livre, emprunteur1, date_rendu);
-		bibliothecaire.preterLivre(livre, emprunteur2, date_rendu);
+		bibliothecaire.preterLivre(livre1, emprunteur1, datePassee);
+		bibliothecaire.preterLivre(livre1, emprunteur2, dateFuture);
 		
 		//THEN
-		assertNotNull(emprunteur1.getLivresEmpruntes().get(livre));
-		assertTrue(emprunteur1.getLivresEmpruntes().get(livre).equals(date_rendu));
+		assertNotNull(emprunteur1.getLivresEmpruntes().get(livre1));
+		assertTrue(emprunteur1.getLivresEmpruntes().get(livre1).equals(datePassee));
 		assertNotNull(bibliothecaire.getEmprunteurs());
 		assertTrue(bibliothecaire.getEmprunteurs().contains(emprunteur1));
 		assertTrue(bibliothecaire.getEmprunteurs().contains(emprunteur2));
@@ -104,12 +108,9 @@ class BibliothecaireTest {
 	@Test
 	void testListerEmprunteursEnRetard() {
 		//GIVEN
-		Auteur auteur=new Auteur("Romain Gary");
-		Livre livre=new Livre(auteur, "La Vie devant soi");
-		bibliothecaire.ajouterLivre(livre);
+		bibliothecaire.ajouterLivre(livre1);
 		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig");
-		LocalDate date_rendu = LocalDate.of(2021, Month.SEPTEMBER, 7);
-		bibliothecaire.preterLivre(livre, emprunteur, date_rendu);
+		bibliothecaire.preterLivre(livre1, emprunteur, dateFuture);
 		
 		//WHEN
 		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.ListerEmprunteursEnRetard(bibliothecaire.getEmprunteurs());
@@ -121,17 +122,11 @@ class BibliothecaireTest {
 	@Test
 	void testListerEmprunteursEnRetard2() {
 		//GIVEN
-		Auteur auteur=new Auteur("Romain Gary");
-		Livre livre1=new Livre(auteur, "La Vie devant soi");
-		bibliothecaire.ajouterLivre(livre1);		
-		Auteur auteur2=new Auteur("Camille Rey");
-		Livre livre2=new Livre(auteur2, "La Vie devant soi");
+		bibliothecaire.ajouterLivre(livre1);
 		bibliothecaire.ajouterLivre(livre2);
-		Emprunteur emprunteur1=new Emprunteur("Poder", "Solveig");
-		Emprunteur emprunteur2=new Emprunteur("Caron", "Juliette");
-		bibliothecaire.preterLivre(livre1, emprunteur1, LocalDate.of(2021, Month.SEPTEMBER, 7));
-		bibliothecaire.preterLivre(livre2, emprunteur1, LocalDate.of(2020, Month.SEPTEMBER, 7));
-		bibliothecaire.preterLivre(livre1, emprunteur2, LocalDate.of(2020, Month.SEPTEMBER, 7));
+		bibliothecaire.preterLivre(livre1, emprunteur1, dateFuture);
+		bibliothecaire.preterLivre(livre2, emprunteur1, datePassee);
+		bibliothecaire.preterLivre(livre1, emprunteur2, datePassee);
 		
 		//WHEN
 		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.ListerEmprunteursEnRetard(bibliothecaire.getEmprunteurs());
@@ -148,16 +143,10 @@ class BibliothecaireTest {
 	@Test
 	void testRelancerEmprunteurEnRetard() {
 		//GIVEN
-		Auteur auteur=new Auteur("Romain Gary");
-		Livre livre1=new Livre(auteur, "La Vie devant soi");
 		bibliothecaire.ajouterLivre(livre1);		
-		Auteur auteur2=new Auteur("Camille Rey");
-		Livre livre2=new Livre(auteur2, "La Vie devant soi");
 		bibliothecaire.ajouterLivre(livre2);
-		Emprunteur emprunteur1=new Emprunteur("Poder", "Solveig");
-		Emprunteur emprunteur2=new Emprunteur("Caron", "Juliette");
-		bibliothecaire.preterLivre(livre1, emprunteur1, LocalDate.of(2021, Month.SEPTEMBER, 7));
-		bibliothecaire.preterLivre(livre1, emprunteur2, LocalDate.of(2020, Month.SEPTEMBER, 7));
+		bibliothecaire.preterLivre(livre1, emprunteur1, dateFuture);
+		bibliothecaire.preterLivre(livre1, emprunteur2, datePassee);
 		
 		//WHEN
 		bibliothecaire.RelancerEmprunteurEnRetard(bibliothecaire.getEmprunteurs());	
@@ -170,13 +159,9 @@ class BibliothecaireTest {
 	@Test
 	void testListerPersonnesAyantEmpruntesUnLivre() {
 		//GIVEN
-		Auteur auteur=new Auteur("Romain Gary");
-		Livre livre=new Livre(auteur, "La Vie devant soi");
-		bibliothecaire.ajouterLivre(livre);
-		Emprunteur emprunteur1=new Emprunteur("Poder", "Solveig");
-		Emprunteur emprunteur2=new Emprunteur("Caron", "Juliette");
-		bibliothecaire.preterLivre(livre, emprunteur1, LocalDate.of(2021, Month.SEPTEMBER, 7));
-		bibliothecaire.preterLivre(livre, emprunteur2, LocalDate.of(2021, Month.SEPTEMBER, 7));
+		bibliothecaire.ajouterLivre(livre1);
+		bibliothecaire.preterLivre(livre1, emprunteur1, dateFuture);
+		bibliothecaire.preterLivre(livre1, emprunteur2, datePassee);
 		
 		//WHEN
 		ArrayList<Emprunteur> emprunteurs = bibliothecaire.listerPersonnesAyantEmprunteUnLivre();
@@ -190,91 +175,70 @@ class BibliothecaireTest {
 	@Test
 	void testListerLivresEmpruntesParEtudiant() {
 		//GIVEN
-		Auteur auteur=new Auteur("Romain Gary");
-		Livre livre=new Livre(auteur, "La Vie devant soi");
-		bibliothecaire.ajouterLivre(livre);
-		Etudiant etudiant=new Etudiant("Poder", "Solveig", 21903145);
-		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7);
-		Auteur auteur2=new Auteur("Elena Ferrante");
-		Livre livre2=new Livre(auteur2, "L'Amie prodigieuse");
+		bibliothecaire.ajouterLivre(livre1);
 		bibliothecaire.ajouterLivre(livre2);
-		Emprunteur emprunteur=new Emprunteur("Garnier", "Johanna");
-		bibliothecaire.preterLivre(livre, etudiant, date_rendu);
-		bibliothecaire.preterLivre(livre2, emprunteur, date_rendu);
+		Etudiant etudiant=new Etudiant("Poder", "Solveig", 21903145);
+		bibliothecaire.preterLivre(livre1, etudiant, dateFuture);
+		bibliothecaire.preterLivre(livre2, emprunteur1, dateFuture);
 		
 		//WHEN
 		ArrayList<Livre> livresEtudiants = bibliothecaire.listerLivresEmpruntesParEtudiant();
 		
 		//THEN
 		assertFalse(livresEtudiants.isEmpty());
-		assertTrue(livresEtudiants.contains(livre));
+		assertTrue(livresEtudiants.contains(livre1));
 		assertFalse(livresEtudiants.contains(livre2));
 	}
 	
 	@Test
 	void testListerLivresEmpruntes() {
 		//GIVEN
-		Auteur auteur=new Auteur("Romain Gary");
-		Livre livre=new Livre(auteur, "La Vie devant soi");
-		bibliothecaire.ajouterLivre(livre);
-		Etudiant etudiant=new Etudiant("Poder", "Solveig", 21903145);
-		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7);
-		Auteur auteur2=new Auteur("Elena Ferrante");
-		Livre livre2=new Livre(auteur2, "L'Amie prodigieuse");
+		bibliothecaire.ajouterLivre(livre1);
 		bibliothecaire.ajouterLivre(livre2);
-		Emprunteur emprunteur=new Emprunteur("Garnier", "Johanna");
-		bibliothecaire.preterLivre(livre, etudiant, date_rendu);
-		bibliothecaire.preterLivre(livre2, emprunteur, date_rendu);
+		Etudiant etudiant=new Etudiant("Poder", "Solveig", 21903145);
+		bibliothecaire.preterLivre(livre1, etudiant, dateFuture);
+		bibliothecaire.preterLivre(livre2, emprunteur1, datePassee);
 		
 		//WHEN
 		ArrayList<Livre> livresEtudiants = bibliothecaire.listerLivresEmpruntes();
 		
 		//THEN
 		assertFalse(livresEtudiants.isEmpty());
-		assertTrue(livresEtudiants.contains(livre));
+		assertTrue(livresEtudiants.contains(livre1));
 		assertTrue(livresEtudiants.contains(livre2));
 	}
 	
 	@Test
 	void testListerLivresAnglais() {
 		//GIVEN
-		Auteur auteurfr=new Auteur("Romain Gary");
-		Livre livrefr=new Livre(auteurfr, "La Vie devant soi");
-		bibliothecaire.ajouterLivre(livrefr);
-		Auteur auteuren=new Auteur("Neil Gaiman");
-		LivreAnglais livreen=new LivreAnglais(auteuren, "American Gods", "Michel Pagel");
-		bibliothecaire.ajouterLivre(livreen);
+		bibliothecaire.ajouterLivre(livre1);
+		Auteur auteurEn=new Auteur("Neil Gaiman");
+		LivreAnglais livreEn=new LivreAnglais(auteurEn, "American Gods", "Michel Pagel");
+		bibliothecaire.ajouterLivre(livreEn);
 		
 		//WHEN
 		ArrayList<Livre> livresAnglais = bibliothecaire.listerLivresAnglais();
 		
 		//THEN
 		assertFalse(livresAnglais.isEmpty());
-		assertTrue(livresAnglais.contains(livreen));
-		assertFalse(livresAnglais.contains(livrefr));
+		assertTrue(livresAnglais.contains(livreEn));
+		assertFalse(livresAnglais.contains(livre1));
 	}
 	
 	@Test
 	void testListerNbLivresEmpruntesPourUnAuteur() {
 		//GIVEN
-		Auteur auteur=new Auteur("Romain Gary");
-		Livre livre=new Livre(auteur, "La Vie devant soi");
-		bibliothecaire.ajouterLivre(livre);
-		Etudiant etudiant=new Etudiant("Poder", "Solveig", 21903145);
-		LocalDate date_rendu = LocalDate.of(2020, Month.SEPTEMBER, 7);
-		Auteur auteur2=new Auteur("Elena Ferrante");
-		Livre livre2=new Livre(auteur2, "L'Amie prodigieuse");
+		bibliothecaire.ajouterLivre(livre1);
 		bibliothecaire.ajouterLivre(livre2);
-		Emprunteur emprunteur=new Emprunteur("Garnier", "Johanna");
-		bibliothecaire.preterLivre(livre, etudiant, date_rendu);
-		bibliothecaire.preterLivre(livre2, emprunteur, date_rendu);
+		bibliothecaire.preterLivre(livre1, emprunteur1, datePassee);
+		bibliothecaire.preterLivre(livre2, emprunteur2, dateFuture);
 		
 		//WHEN
 		bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary");
 		
 		//THEN
 		assertNotNull(bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary"));
-		assertTrue(bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary").contains(livre));
+		assertTrue(bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary").contains(livre1));
 		assertFalse(bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary").contains(livre2));
 		assertTrue(bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary").size() == 1);
 	}
@@ -308,16 +272,10 @@ class BibliothecaireTest {
 	@Test
 	void testEnvoyerAmendeRetardaire() {
 		//GIVEN
-		Auteur auteur=new Auteur("Romain Gary");
-		Livre livre1=new Livre(auteur, "La Vie devant soi");
 		bibliothecaire.ajouterLivre(livre1);		
-		Auteur auteur2=new Auteur("Camille Rey");
-		Livre livre2=new Livre(auteur2, "La Vie devant soi");
 		bibliothecaire.ajouterLivre(livre2);
-		Emprunteur emprunteur1=new Emprunteur("Poder", "Solveig");
-		Emprunteur emprunteur2=new Emprunteur("Caron", "Juliette");
-		bibliothecaire.preterLivre(livre1, emprunteur1, LocalDate.of(2021, Month.SEPTEMBER, 7));
-		bibliothecaire.preterLivre(livre1, emprunteur2, LocalDate.of(2020, Month.SEPTEMBER, 7));
+		bibliothecaire.preterLivre(livre1, emprunteur1, dateFuture);
+		bibliothecaire.preterLivre(livre1, emprunteur2, datePassee);
 		
 		//WHEN
 		bibliothecaire.EnvoyerAmendeRetardaire();
@@ -331,18 +289,15 @@ class BibliothecaireTest {
 	@Test
 	void testEncaisserAmendeRetardaire() {
 		//GIVEN
-		Auteur auteur=new Auteur("Romain Gary");
-		Livre livre1=new Livre(auteur, "La Vie devant soi");
 		bibliothecaire.ajouterLivre(livre1);		
-		Emprunteur emprunteur2=new Emprunteur("Caron", "Juliette");
-		bibliothecaire.preterLivre(livre1, emprunteur2, LocalDate.of(2020, Month.SEPTEMBER, 7));
+		bibliothecaire.preterLivre(livre1, emprunteur1, datePassee);
 		bibliothecaire.EnvoyerAmendeRetardaire();
 
 		//WHEN
-		bibliothecaire.EncaisserAmendeRetardaire(emprunteur2, 2.0);
+		bibliothecaire.EncaisserAmendeRetardaire(emprunteur1, 2.0);
 		
 		//THEN
-		assertTrue(emprunteur2.getSolde()==0);
+		assertTrue(emprunteur1.getSolde()==0);
 		assertTrue(bibliothecaire.getCaisse() == 2);
 	}
 
