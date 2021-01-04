@@ -230,17 +230,25 @@ class BibliothecaireTest {
 		//GIVEN
 		bibliothecaire.ajouterLivre(livre1);
 		bibliothecaire.ajouterLivre(livre2);
+		Livre livre3 = new Livre(auteur2, "Soumission");
+		bibliothecaire.ajouterLivre(livre3);
+		//Auteur auteur4 = new Auteur("Charles Dickens");
 		bibliothecaire.preterLivre(livre1, emprunteur1, datePassee);
 		bibliothecaire.preterLivre(livre2, emprunteur2, dateFuture);
+		bibliothecaire.preterLivre(livre3, emprunteur2, dateFuture);
 		
 		//WHEN
-		bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary");
+		ArrayList<Livre> livresAuteur1 = bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Michel Houellebecq");
+		ArrayList<Livre> livresAuteur2 = bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Charles Dickens");
 		
 		//THEN
-		assertNotNull(bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary"));
-		assertTrue(bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary").contains(livre1));
-		assertFalse(bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary").contains(livre2));
-		assertTrue(bibliothecaire.ListerNbLivresEmpruntesPourUnAuteur("Romain Gary").size() == 1);
+		assertFalse(livresAuteur1.isEmpty());
+		assertFalse(livresAuteur1.contains(livre1));
+		assertTrue(livresAuteur1.contains(livre2));
+		assertTrue(livresAuteur1.contains(livre3));
+		assertTrue(livresAuteur1.size() == 2);
+		assertTrue(livresAuteur2.isEmpty());
+		
 	}
 	
 	@Test
