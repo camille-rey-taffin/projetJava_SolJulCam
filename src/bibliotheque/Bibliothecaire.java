@@ -59,7 +59,7 @@ public class Bibliothecaire {
 		return listeLivresTheme;
 	}
 	
-	public ArrayList<Livre> listerLivres(Class<?> cls) {
+	public ArrayList<Livre> listerLivres(Class<? extends Livre> cls) {
 		ArrayList<Livre> listeLivresClasse = new ArrayList<Livre>();
 		for (Livre livre : listerLivres()) {
 			if (cls.isInstance(livre)) {
@@ -125,10 +125,10 @@ public class Bibliothecaire {
 		return livres;
 	}
 	
-	public ArrayList<Livre> listerLivresEmpruntes(Class<EtudiantEmprunteur> cls) {
+	public ArrayList<Livre> listerLivresEmpruntes(Class<? extends Emprunteur> cls) {
 		ArrayList<Livre> livres = new ArrayList<Livre>();
 		for (Emprunteur emprunteur : emprunteurs) {
-			if (emprunteur instanceof EtudiantEmprunteur) {
+			if (cls.isInstance(emprunteur)) {
 				for (Map.Entry<Livre, LocalDate> emprunt : emprunteur.getLivresEmpruntes().entrySet()){
 					livres.add(emprunt.getKey());
 				}
