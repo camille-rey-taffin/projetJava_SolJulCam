@@ -281,7 +281,28 @@ class BibliothecaireTest {
 	
 	@Test
 	void testTrouverLivreSurUnTheme() {
-		fail("Not yet implemented");
+		//GIVEN
+		Auteur auteur=new Auteur("Camille Rey");
+		Livre livre=new Livre(auteur, "Mon super livre");
+		bibliothecaire.ajouterLivre(livre);
+		Auteur auteur2=new Auteur("Juliette Caron");
+		Livre livre2=new Livre(auteur2, "Aladdin court");
+		bibliothecaire.ajouterLivre(livre2);
+		Livre livre3=new Livre(auteur2, "Le petit lapin");
+		bibliothecaire.ajouterLivre(livre3);
+		Livre livre4=new Livre(auteur, "La course folle");
+		bibliothecaire.ajouterLivre(livre4);
+		livre.setTheme("biographie");
+		livre2.setTheme("aventure");
+		livre3.setTheme("enfance");
+		livre4.setTheme("aventure");
+		
+		//WHEN
+		Livre result = bibliothecaire.TrouverLivreSurUnTheme("aventure");
+		
+		//THEN
+		assertNotNull(result);
+		assertTrue(result.getTheme() == "aventure");
 	}
 	
 	@Test

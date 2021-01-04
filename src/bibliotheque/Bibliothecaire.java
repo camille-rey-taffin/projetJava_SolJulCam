@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-
+import java.util.Random;
 import java.util.Map.Entry;
 import java.time.LocalDate;
 
@@ -122,8 +122,8 @@ public class Bibliothecaire {
 	
 	public ArrayList<Livre> listerLivresAnglais() {
 		ArrayList<Livre> livresAnglais = new ArrayList<Livre>();
-		for (Entry<Auteur, ArrayList<Livre>> a : getCatalogue().entrySet()) {
-			for (Livre livre : a.getValue()) {
+		for (Entry<Auteur, ArrayList<Livre>> paire : getCatalogue().entrySet()) {
+			for (Livre livre : paire.getValue()) {
 				if (livre instanceof LivreAnglais) {
 					livresAnglais.add(livre);
 				}
@@ -141,6 +141,24 @@ public class Bibliothecaire {
 			}
 		}
 		return livresAuteur;
+	}
+	
+	public Livre TrouverLivreSurUnTheme(String theme) {
+		ArrayList<Livre> livresTheme = new ArrayList<Livre>();
+		Random randomGenerator = new Random();
+		for (Entry<Auteur, ArrayList<Livre>> paire : getCatalogue().entrySet()) {
+			for (Livre livre : paire.getValue()) {
+				if (livre.getTheme() == theme) {
+					livresTheme.add(livre);
+				}
+			}
+		}
+		if (!livresTheme.isEmpty()) {
+		int index = randomGenerator.nextInt(livresTheme.size());
+		Livre choix = livresTheme.get(index);
+		return choix;
+		}
+		return null;
 	}
 	
 	public void EnvoyerAmendeRetardaire() {

@@ -74,7 +74,7 @@ public class Livre implements Serializable  {
 	}
 	
 	public String getTheme() {
-		return resume;
+		return theme;
 	}
 
 	public void setTheme(String theme) {
