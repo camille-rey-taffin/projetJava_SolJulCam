@@ -177,7 +177,7 @@ class BibliothecaireTest {
 		//GIVEN
 		bibliothecaire.ajouterLivre(livre1);
 		bibliothecaire.ajouterLivre(livre2);
-		Etudiant etudiant=new Etudiant("Poder", "Solveig", 21903145);
+		EtudiantEmprunteur etudiant=new EtudiantEmprunteur("Poder", "Solveig", 21903145);
 		bibliothecaire.preterLivre(livre1, etudiant, dateFuture);
 		bibliothecaire.preterLivre(livre2, emprunteur1, dateFuture);
 		
@@ -195,7 +195,7 @@ class BibliothecaireTest {
 		//GIVEN
 		bibliothecaire.ajouterLivre(livre1);
 		bibliothecaire.ajouterLivre(livre2);
-		Etudiant etudiant=new Etudiant("Poder", "Solveig", 21903145);
+		EtudiantEmprunteur etudiant=new EtudiantEmprunteur("Poder", "Solveig", 21903145);
 		bibliothecaire.preterLivre(livre1, etudiant, dateFuture);
 		bibliothecaire.preterLivre(livre2, emprunteur1, datePassee);
 		

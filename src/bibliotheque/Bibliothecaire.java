@@ -101,7 +101,7 @@ public class Bibliothecaire {
 	public ArrayList<Livre> listerLivresEmpruntesParEtudiant() {
 		ArrayList<Livre> livres = new ArrayList<Livre>();
 		for (Emprunteur emprunteur : emprunteurs) {
-			if (emprunteur instanceof Etudiant) {
+			if (emprunteur instanceof EtudiantEmprunteur) {
 				for (Map.Entry<Livre, LocalDate> emprunt : emprunteur.getLivresEmpruntes().entrySet()){
 					livres.add(emprunt.getKey());
 				}
