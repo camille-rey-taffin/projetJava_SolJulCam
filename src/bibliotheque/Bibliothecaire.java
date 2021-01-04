@@ -108,15 +108,15 @@ public class Bibliothecaire {
 	}
 	
 	public ArrayList<Livre> listerLivresAnglais() {
-		ArrayList<Livre> livres = new ArrayList<Livre>();
+		ArrayList<Livre> livresAnglais = new ArrayList<Livre>();
 		for (Entry<Auteur, ArrayList<Livre>> a : getCatalogue().entrySet()) {
 			for (Livre livre : a.getValue()) {
 				if (livre instanceof LivreAnglais) {
-					livres.add(livre);
+					livresAnglais.add(livre);
 				}
 			}
 		}
-		return livres;
+		return livresAnglais;
 	}
 	
 	public ArrayList<Livre> ListerNbLivresEmpruntesPourUnAuteur(String auteurTest) {

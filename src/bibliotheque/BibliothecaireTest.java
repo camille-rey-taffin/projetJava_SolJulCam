@@ -224,12 +224,12 @@ class BibliothecaireTest {
 		bibliothecaire.ajouterLivre(livreen);
 		
 		//WHEN
-		bibliothecaire.listerLivresAnglais();
+		ArrayList<Livre> livresAnglais = bibliothecaire.listerLivresAnglais();
 		
 		//THEN
-		assertNotNull(bibliothecaire.listerLivresAnglais());
-		assertTrue(bibliothecaire.listerLivresAnglais().contains(livreen));
-		assertFalse(bibliothecaire.listerLivresAnglais().contains(livrefr));
+		assertFalse(livresAnglais.isEmpty());
+		assertTrue(livresAnglais.contains(livreen));
+		assertFalse(livresAnglais.contains(livrefr));
 	}
 	
 	@Test
