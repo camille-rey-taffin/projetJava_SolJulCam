@@ -179,12 +179,12 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre, emprunteur2, LocalDate.of(2021, Month.SEPTEMBER, 7));
 		
 		//WHEN
-		bibliothecaire.listerPersonnesAyantEmprunteUnLivre();
+		ArrayList<Emprunteur> emprunteurs = bibliothecaire.listerPersonnesAyantEmprunteUnLivre();
 		
 		//THEN
-		assertFalse(bibliothecaire.listerPersonnesAyantEmprunteUnLivre().isEmpty());
-		assertTrue(bibliothecaire.listerPersonnesAyantEmprunteUnLivre().contains(emprunteur1));
-		assertTrue(bibliothecaire.listerPersonnesAyantEmprunteUnLivre().contains(emprunteur2));
+		assertFalse(emprunteurs.isEmpty());
+		assertTrue(emprunteurs.contains(emprunteur1));
+		assertTrue(emprunteurs.contains(emprunteur2));
 	}
 	
 	@Test
@@ -203,12 +203,12 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre2, emprunteur, date_rendu);
 		
 		//WHEN
-		bibliothecaire.listerLivresEmpruntesParEtudiant();
+		ArrayList<Livre> livresEtudiants = bibliothecaire.listerLivresEmpruntesParEtudiant();
 		
 		//THEN
-		assertNotNull(bibliothecaire.listerLivresEmpruntesParEtudiant());
-		assertTrue(bibliothecaire.listerLivresEmpruntesParEtudiant().contains(livre));
-		assertFalse(bibliothecaire.listerLivresEmpruntesParEtudiant().contains(livre2));
+		assertFalse(livresEtudiants.isEmpty());
+		assertTrue(livresEtudiants.contains(livre));
+		assertFalse(livresEtudiants.contains(livre2));
 	}
 	
 	@Test
@@ -227,12 +227,12 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre2, emprunteur, date_rendu);
 		
 		//WHEN
-		bibliothecaire.listerLivresEmpruntes();
+		ArrayList<Livre> livresEtudiants = bibliothecaire.listerLivresEmpruntes();
 		
 		//THEN
-		assertNotNull(bibliothecaire.listerLivresEmpruntes());
-		assertTrue(bibliothecaire.listerLivresEmpruntes().contains(livre));
-		assertTrue(bibliothecaire.listerLivresEmpruntes().contains(livre2));
+		assertFalse(livresEtudiants.isEmpty());
+		assertTrue(livresEtudiants.contains(livre));
+		assertTrue(livresEtudiants.contains(livre2));
 	}
 	
 	@Test
@@ -246,12 +246,12 @@ class BibliothecaireTest {
 		bibliothecaire.ajouterLivre(livreen);
 		
 		//WHEN
-		bibliothecaire.listerLivresAnglais();
+		ArrayList<Livre> livresAnglais = bibliothecaire.listerLivresAnglais();
 		
 		//THEN
-		assertNotNull(bibliothecaire.listerLivresAnglais());
-		assertTrue(bibliothecaire.listerLivresAnglais().contains(livreen));
-		assertFalse(bibliothecaire.listerLivresAnglais().contains(livrefr));
+		assertFalse(livresAnglais.isEmpty());
+		assertTrue(livresAnglais.contains(livreen));
+		assertFalse(livresAnglais.contains(livrefr));
 	}
 	
 	@Test
