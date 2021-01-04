@@ -113,7 +113,7 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre1, emprunteur, dateFuture);
 		
 		//WHEN
-		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.ListerEmprunteursEnRetard(bibliothecaire.getEmprunteurs());
+		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.ListerEmprunteursEnRetard();
 		
 		//THEN
 		assertTrue(retards.isEmpty());
@@ -129,7 +129,7 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre1, emprunteur2, datePassee);
 		
 		//WHEN
-		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.ListerEmprunteursEnRetard(bibliothecaire.getEmprunteurs());
+		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.ListerEmprunteursEnRetard();
 		
 		//THEN
 		assertFalse(retards.isEmpty());
@@ -149,7 +149,7 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre1, emprunteur2, datePassee);
 		
 		//WHEN
-		bibliothecaire.RelancerEmprunteurEnRetard(bibliothecaire.getEmprunteurs());	
+		bibliothecaire.RelancerEmprunteurEnRetard();	
 
 		//THEN
 		assertFalse(emprunteur2.getMessagerie().isEmpty());
