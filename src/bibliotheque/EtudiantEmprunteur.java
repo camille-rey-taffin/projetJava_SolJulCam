@@ -1,10 +1,10 @@
 package bibliotheque;
 
-public class Etudiant extends Emprunteur {
+public class EtudiantEmprunteur extends Emprunteur {
 	
 	private long numeroEtudiant;
 
-	public Etudiant(String nom, String prenom, long numeroEtudiant) {
+	public EtudiantEmprunteur(String nom, String prenom, long numeroEtudiant) {
 		super(nom, prenom);
 		this.setNumeroEtudiant(numeroEtudiant);
 	}
