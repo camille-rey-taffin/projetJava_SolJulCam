@@ -51,6 +51,10 @@ public class Emprunteur {
 	public void setLivresEmpruntes(HashMap<Livre, LocalDate> livresEmpruntes) {
 		this.livresEmpruntes = livresEmpruntes;
 	}
+	
+	public void addEmprunt(Livre livreEmprunte, LocalDate dateRendu) {
+		getLivresEmpruntes().put(livreEmprunte, dateRendu);
+	}
 
 	public HashMap<String, String> getMessagerie() {
 		return messagerie;

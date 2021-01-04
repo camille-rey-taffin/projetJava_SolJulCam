@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
-import java.util.Map.Entry;
 import java.time.LocalDate;
 
 public class Bibliothecaire {
@@ -28,34 +27,52 @@ public class Bibliothecaire {
 			livres.add(nouveauLivre);
 			getCatalogue().put(nouveauLivre.getAuteur(), livres);
 		}
-
 	}
 
-	public String listerOeuvresAuteur(Auteur auteur) {
-		ArrayList<Livre> livres= catalogue.get(auteur);
-		String titreDesLivres="";
-		for (Livre livre : livres) {
-			titreDesLivres+=livre.getTitre()+ "\n";
-		}
-		return "L'auteur "+auteur.getNom()+" a ecrit "+livres.size() +" livres:\n"+ titreDesLivres;
-	}
-	
 	public void enleverLivre(Livre ancienLivre) {
 		if ((Objects.nonNull(getCatalogue().get(ancienLivre.getAuteur()))) ) {
 			getCatalogue().get(ancienLivre.getAuteur()).remove(ancienLivre);
 		}
 	}
 	
-	public void preterLivre(Livre livre, Emprunteur emprunteur, LocalDate date) {
-		emprunteur.getLivresEmpruntes().put(livre, date);
-		if (Objects.nonNull(getEmprunteurs())){
-			if (!getEmprunteurs().contains(emprunteur)) {
-				getEmprunteurs().add(emprunteur);
+	public ArrayList<Livre> listerLivres() {
+		ArrayList<Livre> listeLivres = new ArrayList<Livre>();
+		for (ArrayList<Livre> livres : getCatalogue().values()) {
+			for (Livre livre : livres) {
+				listeLivres.add(livre);
 			}
-		} else {
-			ArrayList<Emprunteur> emprunteurs= new ArrayList<Emprunteur>();
-			emprunteurs.add(emprunteur);
-			setEmprunteurs(emprunteurs);
+		}
+		return listeLivres;
+	}
+	
+	public ArrayList<Livre> listerLivres(Auteur auteur) {
+		return getCatalogue().get(auteur);
+	}
+	
+	public ArrayList<Livre> listerLivres(String theme) {
+		ArrayList<Livre> listeLivresTheme = new ArrayList<Livre>();
+		for (Livre livre : listerLivres()) {
+			if (livre.getTheme() == theme) {
+				listeLivresTheme.add(livre);
+			}
+		}
+		return listeLivresTheme;
+	}
+	
+	public ArrayList<Livre> listerLivres(Class<?> cls) {
+		ArrayList<Livre> listeLivresClasse = new ArrayList<Livre>();
+		for (Livre livre : listerLivres()) {
+			if (cls.isInstance(livre)) {
+				listeLivresClasse.add(livre);
+			}
+		}
+		return listeLivresClasse;
+	}
+	
+	public void preterLivre(Livre livre, Emprunteur emprunteur, LocalDate date) {
+		emprunteur.addEmprunt(livre, date);
+		if (!getEmprunteurs().contains(emprunteur)) {
+			getEmprunteurs().add(emprunteur);
 		}
 	}
 	
@@ -98,6 +115,15 @@ public class Bibliothecaire {
 		}
 	}
 
+	public ArrayList<Livre> listerLivresEmpruntes() {
+		ArrayList<Livre> livres = new ArrayList<Livre>();
+		for (Emprunteur emprunteur : emprunteurs) {
+			for (Map.Entry<Livre, LocalDate> emprunt : emprunteur.getLivresEmpruntes().entrySet()){
+				livres.add(emprunt.getKey());
+			}
+		}
+		return livres;
+	}
 	
 	public ArrayList<Livre> listerLivresEmpruntes(Class<EtudiantEmprunteur> cls) {
 		ArrayList<Livre> livres = new ArrayList<Livre>();
@@ -111,28 +137,6 @@ public class Bibliothecaire {
 		return livres;
 	}
 	
-	public ArrayList<Livre> listerLivresEmpruntes() {
-		ArrayList<Livre> livres = new ArrayList<Livre>();
-		for (Emprunteur emprunteur : emprunteurs) {
-			for (Map.Entry<Livre, LocalDate> emprunt : emprunteur.getLivresEmpruntes().entrySet()){
-				livres.add(emprunt.getKey());
-			}
-		}
-		return livres;
-	}
-	
-	public ArrayList<Livre> listerLivresAnglais() {
-		ArrayList<Livre> livresAnglais = new ArrayList<Livre>();
-		for (Entry<Auteur, ArrayList<Livre>> paire : getCatalogue().entrySet()) {
-			for (Livre livre : paire.getValue()) {
-				if (livre instanceof LivreAnglais) {
-					livresAnglais.add(livre);
-				}
-			}
-		}
-		return livresAnglais;
-	}
-	
 	public ArrayList<Livre> listerLivresEmpruntes(Auteur auteurFiltre) {
 		ArrayList<Livre> livresAuteur = new ArrayList<Livre>();
 		ArrayList<Livre> livres = listerLivresEmpruntes();
@@ -144,20 +148,8 @@ public class Bibliothecaire {
 		return livresAuteur;
 	}
 	
-	public ArrayList<Livre> listerLivresEmpruntes(String theme) {
-		ArrayList<Livre> livresTheme = new ArrayList<Livre>();
-		for (Entry<Auteur, ArrayList<Livre>> paire : getCatalogue().entrySet()) {
-			for (Livre livre : paire.getValue()) {
-				if (livre.getTheme() == theme) {
-					livresTheme.add(livre);
-				}
-			}
-		}
-		return livresTheme; 
-	}
-	
 	public Livre TrouverLivreSurUnTheme(String theme) {
-		ArrayList<Livre> livresTheme = listerLivresEmpruntes(theme);
+		ArrayList<Livre> livresTheme = listerLivres(theme);
 		Random randomGenerator = new Random();
 		try {
 			int index = randomGenerator.nextInt(livresTheme.size());
@@ -207,5 +199,4 @@ public class Bibliothecaire {
 	public void changeCaisse(double montant) {
 		this.caisse += montant;
 	}
-
 }

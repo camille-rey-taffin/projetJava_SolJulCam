@@ -47,20 +47,14 @@ class BibliothecaireTest {
 	void testAfficherOeuvresAuteur() {
 		
 		//GIVEN
-		Auteur auteur=new Auteur("nomAuteur");
-		ArrayList<Livre> livres=new ArrayList<>();
-		String titre = "un titre presomptueux";
-		Livre premierLivre=new Livre(auteur, titre);
-		livres.add(premierLivre);
-		bibliothecaire.getCatalogue().put(auteur, livres);
+		bibliothecaire.ajouterLivre(livre1);
 		
 		//WHEN
-		String listeOeuvres = bibliothecaire.listerOeuvresAuteur(auteur);
+		ArrayList<Livre> listeOeuvres = bibliothecaire.listerLivres(auteur1);
 		
 		//THEN
-		assertNotNull(listeOeuvres);
-		assertTrue(listeOeuvres.contains(titre));
-		//System.out.println(listeOeuvres);
+		assertFalse(listeOeuvres.isEmpty());
+		assertTrue(listeOeuvres.contains(livre1));
 	}
 	
 	@Test
@@ -106,7 +100,7 @@ class BibliothecaireTest {
 	}
 	
 	@Test
-	void testListerEmprunteursEnRetard() {
+	void testListerEmprunteursEnRetard_vide() {
 		//GIVEN
 		bibliothecaire.ajouterLivre(livre1);
 		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig");
@@ -120,7 +114,7 @@ class BibliothecaireTest {
 	}
 	
 	@Test
-	void testListerEmprunteursEnRetard2() {
+	void testListerEmprunteursEnRetard() {
 		//GIVEN
 		bibliothecaire.ajouterLivre(livre1);
 		bibliothecaire.ajouterLivre(livre2);
@@ -173,24 +167,6 @@ class BibliothecaireTest {
 	}
 	
 	@Test
-	void testListerLivresEmpruntesParEtudiant() {
-		//GIVEN
-		bibliothecaire.ajouterLivre(livre1);
-		bibliothecaire.ajouterLivre(livre2);
-		EtudiantEmprunteur etudiant=new EtudiantEmprunteur("Poder", "Solveig", 21903145);
-		bibliothecaire.preterLivre(livre1, etudiant, dateFuture);
-		bibliothecaire.preterLivre(livre2, emprunteur1, dateFuture);
-		
-		//WHEN
-		ArrayList<Livre> livresEtudiants = bibliothecaire.listerLivresEmpruntes(EtudiantEmprunteur.class);
-		
-		//THEN
-		assertFalse(livresEtudiants.isEmpty());
-		assertTrue(livresEtudiants.contains(livre1));
-		assertFalse(livresEtudiants.contains(livre2));
-	}
-	
-	@Test
 	void testListerLivresEmpruntes() {
 		//GIVEN
 		bibliothecaire.ajouterLivre(livre1);
@@ -209,20 +185,21 @@ class BibliothecaireTest {
 	}
 	
 	@Test
-	void testListerLivresAnglais() {
+	void testListerLivresEmpruntesParEtudiant() {
 		//GIVEN
 		bibliothecaire.ajouterLivre(livre1);
-		Auteur auteurEn=new Auteur("Neil Gaiman");
-		LivreAnglais livreEn=new LivreAnglais(auteurEn, "American Gods", "Michel Pagel");
-		bibliothecaire.ajouterLivre(livreEn);
+		bibliothecaire.ajouterLivre(livre2);
+		EtudiantEmprunteur etudiant=new EtudiantEmprunteur("Poder", "Solveig", 21903145);
+		bibliothecaire.preterLivre(livre1, etudiant, dateFuture);
+		bibliothecaire.preterLivre(livre2, emprunteur1, dateFuture);
 		
 		//WHEN
-		ArrayList<Livre> livresAnglais = bibliothecaire.listerLivresAnglais();
+		ArrayList<Livre> livresEtudiants = bibliothecaire.listerLivresEmpruntes(EtudiantEmprunteur.class);
 		
 		//THEN
-		assertFalse(livresAnglais.isEmpty());
-		assertTrue(livresAnglais.contains(livreEn));
-		assertFalse(livresAnglais.contains(livre1));
+		assertFalse(livresEtudiants.isEmpty());
+		assertTrue(livresEtudiants.contains(livre1));
+		assertFalse(livresEtudiants.contains(livre2));
 	}
 	
 	@Test
@@ -250,6 +227,24 @@ class BibliothecaireTest {
 		assertTrue(livresAuteur2.isEmpty());
 		
 	}
+	
+	@Test
+	void testListerLivresAnglais() {
+		//GIVEN
+		bibliothecaire.ajouterLivre(livre1);
+		Auteur auteurEn=new Auteur("Neil Gaiman");
+		LivreAnglais livreEn=new LivreAnglais(auteurEn, "American Gods", "Michel Pagel");
+		bibliothecaire.ajouterLivre(livreEn);
+		
+		//WHEN
+		ArrayList<Livre> livresAnglais = bibliothecaire.listerLivres(LivreAnglais.class);
+		
+		//THEN
+		assertFalse(livresAnglais.isEmpty());
+		assertTrue(livresAnglais.contains(livreEn));
+		assertFalse(livresAnglais.contains(livre1));
+	}
+	
 	
 	@Test
 	void testTrouverLivreSurUnTheme() {
