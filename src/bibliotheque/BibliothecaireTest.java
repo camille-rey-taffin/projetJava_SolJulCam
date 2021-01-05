@@ -103,8 +103,7 @@ class BibliothecaireTest {
 	void testListerEmprunteursEnRetard_vide() {
 		//GIVEN
 		bibliothecaire.ajouterLivre(livre1);
-		Emprunteur emprunteur=new Emprunteur("Poder", "Solveig");
-		bibliothecaire.preterLivre(livre1, emprunteur, dateFuture);
+		bibliothecaire.preterLivre(livre1, emprunteur1, dateFuture);
 		
 		//WHEN
 		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.listerEmprunteursEnRetard();
@@ -146,6 +145,7 @@ class BibliothecaireTest {
 		bibliothecaire.RelancerEmprunteurEnRetard();	
 
 		//THEN
+		assertTrue(emprunteur1.getMessagerie().isEmpty());
 		assertFalse(emprunteur2.getMessagerie().isEmpty());
 		assertTrue(emprunteur2.getMessagerie().containsKey("retard"));
 	}	
@@ -176,12 +176,12 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre2, emprunteur1, datePassee);
 		
 		//WHEN
-		ArrayList<Livre> livresEtudiants = bibliothecaire.listerLivresEmpruntes();
+		ArrayList<Livre> livresEmpruntes = bibliothecaire.listerLivresEmpruntes();
 		
 		//THEN
-		assertFalse(livresEtudiants.isEmpty());
-		assertTrue(livresEtudiants.contains(livre1));
-		assertTrue(livresEtudiants.contains(livre2));
+		assertFalse(livresEmpruntes.isEmpty());
+		assertTrue(livresEmpruntes.contains(livre1));
+		assertTrue(livresEmpruntes.contains(livre2));
 	}
 	
 	@Test
@@ -209,22 +209,20 @@ class BibliothecaireTest {
 		bibliothecaire.ajouterLivre(livre2);
 		Livre livre3 = new Livre(auteur2, "Soumission");
 		bibliothecaire.ajouterLivre(livre3);
-		Auteur auteur4 = new Auteur("Charles Dickens");
-		bibliothecaire.preterLivre(livre1, emprunteur1, datePassee);
 		bibliothecaire.preterLivre(livre2, emprunteur2, dateFuture);
 		bibliothecaire.preterLivre(livre3, emprunteur2, dateFuture);
 		
 		//WHEN
-		ArrayList<Livre> livresAuteur1 = bibliothecaire.listerLivresEmpruntes(auteur2);
-		ArrayList<Livre> livresAuteur2 = bibliothecaire.listerLivresEmpruntes(auteur4);
+		ArrayList<Livre> livresAuteur1 = bibliothecaire.listerLivresEmpruntes(auteur1);
+		ArrayList<Livre> livresAuteur2 = bibliothecaire.listerLivresEmpruntes(auteur2);
 		
 		//THEN
-		assertFalse(livresAuteur1.isEmpty());
-		assertFalse(livresAuteur1.contains(livre1));
-		assertTrue(livresAuteur1.contains(livre2));
-		assertTrue(livresAuteur1.contains(livre3));
-		assertTrue(livresAuteur1.size() == 2);
-		assertTrue(livresAuteur2.isEmpty());
+		assertTrue(livresAuteur1.isEmpty());
+		assertFalse(livresAuteur2.isEmpty());
+		assertFalse(livresAuteur2.contains(livre1));
+		assertTrue(livresAuteur2.contains(livre2));
+		assertTrue(livresAuteur2.contains(livre3));
+		assertTrue(livresAuteur2.size() == 2);
 		
 	}
 	
