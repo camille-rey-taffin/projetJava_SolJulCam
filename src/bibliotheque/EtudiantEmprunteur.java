@@ -16,5 +16,4 @@ public class EtudiantEmprunteur extends Emprunteur {
 	public void setNumeroEtudiant(long numeroEtudiant) {
 		this.numeroEtudiant = numeroEtudiant;
 	}
-
 }

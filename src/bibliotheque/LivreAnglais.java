@@ -17,5 +17,4 @@ public class LivreAnglais  extends Livre {
 	public void setTraducteur(String traducteur) {
 		this.traducteur = traducteur;
 	}
-	
 }

@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class Auteur implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private String nom;
 
@@ -23,7 +20,6 @@ public class Auteur implements Serializable {
 			return nom.equals(((Auteur) anObject).getNom());
 		}
 		return false;
-
 	}
 
 	public int hashCode() {

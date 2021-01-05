@@ -75,16 +75,8 @@ public class Bibliothecaire {
 			getEmprunteurs().add(emprunteur);
 		}
 	}
-	
-	public ArrayList<Emprunteur> listerEmprunteurs() {
-		if (Objects.nonNull(getEmprunteurs())){
-			return getEmprunteurs();
-		} else {
-			return new ArrayList<Emprunteur>();
-		}
-	}
 
-	public HashMap<Emprunteur, ArrayList<Livre>> listerEmprunteurs(boolean retard) {
+	public HashMap<Emprunteur, ArrayList<Livre>> listerEmprunteursEnRetard() {
 		LocalDate aujourdhui = LocalDate.now();
 		HashMap<Emprunteur, ArrayList<Livre>> retards = new HashMap<Emprunteur, ArrayList<Livre>>();
 		for (Emprunteur emprunteur : emprunteurs) {
@@ -105,7 +97,7 @@ public class Bibliothecaire {
 	}
 	
 	public void RelancerEmprunteurEnRetard() {
-		HashMap<Emprunteur, ArrayList<Livre>> retards = listerEmprunteurs(true);
+		HashMap<Emprunteur, ArrayList<Livre>> retards = listerEmprunteursEnRetard();
 		String livresRetard = "";
 		for (Emprunteur emprunteur : retards.keySet()) {
 			for (Livre livre : retards.get(emprunteur)) {
@@ -139,8 +131,7 @@ public class Bibliothecaire {
 	
 	public ArrayList<Livre> listerLivresEmpruntes(Auteur auteurFiltre) {
 		ArrayList<Livre> livresAuteur = new ArrayList<Livre>();
-		ArrayList<Livre> livres = listerLivresEmpruntes();
-		for (Livre livre : livres) {
+		for (Livre livre : listerLivresEmpruntes()) {
 			if (livre.getAuteur() == auteurFiltre) {
 					livresAuteur.add(livre);
 			}
@@ -161,7 +152,7 @@ public class Bibliothecaire {
 	}
 	
 	public void EnvoyerAmendeRetardaire() {
-		HashMap<Emprunteur, ArrayList<Livre>> retards = listerEmprunteurs(true);
+		HashMap<Emprunteur, ArrayList<Livre>> retards = listerEmprunteursEnRetard();
 		for (Emprunteur emprunteur : retards.keySet()) {
 			emprunteur.changeSolde(2 * retards.get(emprunteur).size());
 		}

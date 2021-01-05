@@ -107,7 +107,7 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre1, emprunteur, dateFuture);
 		
 		//WHEN
-		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.listerEmprunteurs(true);
+		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.listerEmprunteursEnRetard();
 		
 		//THEN
 		assertTrue(retards.isEmpty());
@@ -123,7 +123,7 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre1, emprunteur2, datePassee);
 		
 		//WHEN
-		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.listerEmprunteurs(true);
+		HashMap<Emprunteur, ArrayList<Livre>> retards = bibliothecaire.listerEmprunteursEnRetard();
 		
 		//THEN
 		assertFalse(retards.isEmpty());
@@ -158,7 +158,7 @@ class BibliothecaireTest {
 		bibliothecaire.preterLivre(livre1, emprunteur2, datePassee);
 		
 		//WHEN
-		ArrayList<Emprunteur> emprunteurs = bibliothecaire.listerEmprunteurs();
+		ArrayList<Emprunteur> emprunteurs = bibliothecaire.getEmprunteurs();
 		
 		//THEN
 		assertFalse(emprunteurs.isEmpty());
@@ -245,7 +245,6 @@ class BibliothecaireTest {
 		assertFalse(livresAnglais.contains(livre1));
 	}
 	
-	
 	@Test
 	void testTrouverLivreSurUnTheme() {
 		//GIVEN
@@ -301,5 +300,4 @@ class BibliothecaireTest {
 		assertTrue(emprunteur1.getSolde()==0);
 		assertTrue(bibliothecaire.getCaisse() == 2);
 	}
-
 }

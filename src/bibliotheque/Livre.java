@@ -4,9 +4,6 @@ import java.io.Serializable;
 
 public class Livre implements Serializable  {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private Auteur auteur;
 	private String titre;
@@ -44,7 +41,6 @@ public class Livre implements Serializable  {
 		return titre.hashCode();
 	}
 
-
 	public void setAnneePublication(int anneePublication) {
 		this.anneePublication = anneePublication;
 	}
@@ -80,5 +76,4 @@ public class Livre implements Serializable  {
 	public void setTheme(String theme) {
 		this.theme = theme;
 	}
-
 }
