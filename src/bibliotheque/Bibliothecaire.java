@@ -190,4 +190,5 @@ public class Bibliothecaire {
 	public void changeCaisse(double montant) {
 		this.caisse += montant;
 	}
+	
 }

@@ -248,25 +248,23 @@ class BibliothecaireTest {
 	@Test
 	void testTrouverLivreSurUnTheme() {
 		//GIVEN
-		Livre livre=new Livre(auteur1, "Mon super livre");
-		bibliothecaire.ajouterLivre(livre);
-		Livre livre2=new Livre(auteur2, "Aladdin court");
+		bibliothecaire.ajouterLivre(livre1);
 		bibliothecaire.ajouterLivre(livre2);
 		Livre livre3=new Livre(auteur2, "Le petit lapin");
 		bibliothecaire.ajouterLivre(livre3);
-		Livre livre4=new Livre(auteur1, "La course folle");
-		bibliothecaire.ajouterLivre(livre4);
-		livre.setTheme("biographie");
+		livre1.setTheme("biographie");
 		livre2.setTheme("aventure");
-		livre3.setTheme("enfance");
-		livre4.setTheme("aventure");
+		livre3.setTheme("aventure");
 		
 		//WHEN
 		Livre result = bibliothecaire.TrouverLivreSurUnTheme("aventure");
+		Livre result2 = bibliothecaire.TrouverLivreSurUnTheme("thriller");
 		
 		//THEN
 		assertNotNull(result);
 		assertTrue(result.getTheme() == "aventure");
+		assertTrue(result.equals(livre2)||result.equals(livre3));
+		assertNull(result2);
 	}
 	
 	@Test
