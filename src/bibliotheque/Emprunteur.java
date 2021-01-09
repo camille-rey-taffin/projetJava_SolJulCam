@@ -3,6 +3,11 @@ package bibliotheque;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+/**
+ * Classe représentant un individu emprunteur :
+ * une personne qui va potentiellement emprunter des livres (objets Livre)
+ * @see Livre
+ */
 public class Emprunteur {
 	
 	private  String nom;
@@ -12,7 +17,11 @@ public class Emprunteur {
 	private HashMap<String, String> messagerie;
 	private double solde;
 
-	
+	 /**
+	  * Constructeur unique de la classe Emprunteur
+	  * @param nom le nom de famille de l'individu emprunteur
+	  * @param prenom le prénom de l'emprunteur
+	  */
 	public Emprunteur(String nom, String prenom) {
 		this.setNom(nom);
 		this.setPrenom(prenom);

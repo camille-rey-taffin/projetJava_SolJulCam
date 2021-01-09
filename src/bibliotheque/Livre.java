@@ -2,6 +2,9 @@ package bibliotheque;
 
 import java.io.Serializable;
 
+/**
+ * Classe représentant un livre 
+ */
 public class Livre implements Serializable  {
 
 	private static final long serialVersionUID = 1L;
@@ -12,6 +15,11 @@ public class Livre implements Serializable  {
 	private int nbTomes;
 	private String theme;
 	
+	 /**
+	  * Constructeur unique de la classe Livre
+	  * @param auteur l'auteur du livre, objet de type Auteur
+	  * @param titre le titre du livre (chaîne de car.)
+	  */
 	public Livre(Auteur auteur,String titre) {
 		this.auteur=auteur;
 		this.titre=titre;

@@ -2,11 +2,18 @@ package bibliotheque;
 
 import java.io.Serializable;
 
+/**
+ * Classe représentant un individu auteur
+ */
 public class Auteur implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String nom;
-
+	
+	 /**
+	  * Constructeur unique de la classe Auteur
+	  * @param nom le nom de l'auteur
+	  */
 	public Auteur(String nom) {
 		this.setNom(nom);
 	}

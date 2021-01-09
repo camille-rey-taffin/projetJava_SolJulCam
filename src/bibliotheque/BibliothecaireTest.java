@@ -11,6 +11,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+/**
+ * Classe permettant de tester les méthodes de la classe Bibliothecaire
+ * @see Bibliothecaire
+ */
 class BibliothecaireTest {
 	
 	private Bibliothecaire bibliothecaire;
