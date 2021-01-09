@@ -3,7 +3,7 @@ package bibliotheque;
 import java.io.Serializable;
 
 /**
- * Classe représentant un livre 
+ * Classe reprÃ©sentant un livre 
  */
 public class Livre implements Serializable  {
 
@@ -18,7 +18,7 @@ public class Livre implements Serializable  {
 	 /**
 	  * Constructeur unique de la classe Livre
 	  * @param auteur l'auteur du livre, objet de type Auteur
-	  * @param titre le titre du livre (chaîne de car.)
+	  * @param titre le titre du livre (chaÃ®ne de car.)
 	  */
 	public Livre(Auteur auteur,String titre) {
 		this.auteur=auteur;

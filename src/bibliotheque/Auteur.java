@@ -3,7 +3,7 @@ package bibliotheque;
 import java.io.Serializable;
 
 /**
- * Classe représentant un individu auteur
+ * Classe reprÃ©sentant un individu auteur
  */
 public class Auteur implements Serializable {
 

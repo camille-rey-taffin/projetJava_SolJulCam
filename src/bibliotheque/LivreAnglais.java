@@ -1,8 +1,8 @@
 package bibliotheque;
 
 /**
- * Classe représentant un livre en anglais
- * Hérite de la classe Livre : {@inheritDoc} 
+ * Classe reprÃ©sentant un livre en anglais
+ * HÃ©rite de la classe Livre : {@inheritDoc} 
  */
 public class LivreAnglais  extends Livre {
 	
@@ -12,8 +12,8 @@ public class LivreAnglais  extends Livre {
 	 /**
 	  * Constructeur de la classe LivreAnglais
 	  * @param auteur l'auteur du livre, objet de type auteur
-	  * @param titre le titre du livre (chaîne de car.)
-	  * @param traducteur le nom du traducteur (chaîne de car.)
+	  * @param titre le titre du livre (chaÃ®ne de car.)
+	  * @param traducteur le nom du traducteur (chaÃ®ne de car.)
 	  */
 	public LivreAnglais(Auteur auteur,String titre, String traducteur) {
 		super(auteur, titre);

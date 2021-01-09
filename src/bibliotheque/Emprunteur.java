@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.HashMap;
 
 /**
- * Classe représentant un individu emprunteur :
+ * Classe reprÃ©sentant un individu emprunteur :
  * une personne qui va potentiellement emprunter des livres (objets Livre)
  * @see Livre
  */
@@ -20,7 +20,7 @@ public class Emprunteur {
 	 /**
 	  * Constructeur unique de la classe Emprunteur
 	  * @param nom le nom de famille de l'individu emprunteur
-	  * @param prenom le prénom de l'emprunteur
+	  * @param prenom le prÃ©nom de l'emprunteur
 	  */
 	public Emprunteur(String nom, String prenom) {
 		this.setNom(nom);

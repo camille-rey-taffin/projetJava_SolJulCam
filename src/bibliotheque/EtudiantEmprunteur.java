@@ -1,8 +1,8 @@
 package bibliotheque;
 
 /**
- * Classe représentant un emprunteur qui est étudiant
- * Hérite de la classe Emprunteur : {@inheritDoc} 
+ * Classe reprÃ©sentant un emprunteur qui est Ã©tudiant
+ * HÃ©rite de la classe Emprunteur : {@inheritDoc} 
  */
 public class EtudiantEmprunteur extends Emprunteur {
 	
@@ -11,8 +11,8 @@ public class EtudiantEmprunteur extends Emprunteur {
 	 /**
 	  * Constructeur de la classe EtudiantEmprunteur
 	  * @param nom le nom de l'individu emprunteur
-	  * @param prenom le prénom de l'emprunteur
-	  * @param numeroEtudiant un nombre correspondant au numéro étudiant de l'emprunteur
+	  * @param prenom le prÃ©nom de l'emprunteur
+	  * @param numeroEtudiant un nombre correspondant au numÃ©ro Ã©tudiant de l'emprunteur
 	  */
 	public EtudiantEmprunteur(String nom, String prenom, long numeroEtudiant) {
 		super(nom, prenom);

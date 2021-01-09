@@ -8,7 +8,7 @@ import java.util.Random;
 import java.time.LocalDate;
 
 /**
- * Classe représentant virtuellement une bibliothèque
+ * Classe reprÃ©sentant virtuellement une bibliothÃ¨que
  */
 public class Bibliothecaire {
 
@@ -19,7 +19,7 @@ public class Bibliothecaire {
 	 /**
 	  * Constructeur de la classe Bibliothecaire
 	  * @param catalogue un objet de type HashMap associant un auteur
-	  * à la liste de ses livres présents dans la bibliothèque
+	  * Ã  la liste de ses livres prÃ©sents dans la bibliothÃ¨que
 	  */
 	public Bibliothecaire(HashMap<Auteur, ArrayList<Livre>> catalogue) {
 		this.catalogue=catalogue;
@@ -28,8 +28,8 @@ public class Bibliothecaire {
 	}
 	
 	 /**
-	  * Méthode pour ajouter un livre au catalogue
-	  * @param nouveauLivre un objet de type Livre correspondant au livre à ajouter
+	  * MÃ©thode pour ajouter un livre au catalogue
+	  * @param nouveauLivre un objet de type Livre correspondant au livre Ã  ajouter
 	  */
 	public void ajouterLivre(Livre nouveauLivre) {
 		if (Objects.nonNull(getCatalogue().get(nouveauLivre.getAuteur()))) {
@@ -42,8 +42,8 @@ public class Bibliothecaire {
 	}
 
 	 /**
-	  * Méthode pour supprimer un livre du catalogue
-	  * @param ancienLivre un objet de type Livre correspondant au livre à supprimer
+	  * MÃ©thode pour supprimer un livre du catalogue
+	  * @param ancienLivre un objet de type Livre correspondant au livre Ã  supprimer
 	  */
 	public void enleverLivre(Livre ancienLivre) {
 		if ((Objects.nonNull(getCatalogue().get(ancienLivre.getAuteur()))) ) {
@@ -52,7 +52,7 @@ public class Bibliothecaire {
 	}
 	
 	 /**
-	  * Méthode pour lister tous les livres du catalogue
+	  * MÃ©thode pour lister tous les livres du catalogue
 	  * @return listeLivres une liste d'objets de type Livre 
 	  */
 	public ArrayList<Livre> listerLivres() {
@@ -66,9 +66,9 @@ public class Bibliothecaire {
 	}
 	
 	 /**
-	  * Méthode pour lister tous les livres d'un auteur
-	  * Surcharge de la méthode listerLivres
-	  * @param auteur un objet de type Auteur correspondant à l'auteur recherché 
+	  * MÃ©thode pour lister tous les livres d'un auteur
+	  * Surcharge de la mÃ©thode listerLivres
+	  * @param auteur un objet de type Auteur correspondant Ã  l'auteur recherchÃ© 
 	  * @return une liste d'objets de type Livre 
 	  */
 	public ArrayList<Livre> listerLivres(Auteur auteur) {
@@ -76,9 +76,9 @@ public class Bibliothecaire {
 	}
 	
 	 /**
-	  * Méthode pour lister tous les livres d'un thème spécifique
-	  * Surcharge de la méthode listerLivres
-	  * @param theme une chaîne de car. correspondant au thème recherché
+	  * MÃ©thode pour lister tous les livres d'un thÃ¨me spÃ©cifique
+	  * Surcharge de la mÃ©thode listerLivres
+	  * @param theme une chaÃ®ne de car. correspondant au thÃ¨me recherchÃ©
 	  * @return listeLivresTheme une liste d'objets de type Livre
 	  */
 	public ArrayList<Livre> listerLivres(String theme) {
@@ -92,12 +92,12 @@ public class Bibliothecaire {
 	}
 	
 	 /**
-	  * Méthode pour lister tous les livres du catalogue appartenant à
-	  * une classe spécifique dérivée de la classe Livre
+	  * MÃ©thode pour lister tous les livres du catalogue appartenant Ã 
+	  * une classe spÃ©cifique dÃ©rivÃ©e de la classe Livre
 	  * (Permet notamment de lister tous les livres en anglais = les livres
-	  * de la classe LivreAnglais, qui hérite de la classe Livre)
-	  * Surcharge de la méthode listerLivres
-	  * @param cls une classe dérivée de la classe Livre  
+	  * de la classe LivreAnglais, qui hÃ©rite de la classe Livre)
+	  * Surcharge de la mÃ©thode listerLivres
+	  * @param cls une classe dÃ©rivÃ©e de la classe Livre  
 	  * @return listeLivresClasse une liste d'objets de type Livre
 	  */
 	public ArrayList<Livre> listerLivres(Class<? extends Livre> cls) {
@@ -111,11 +111,11 @@ public class Bibliothecaire {
 	}
 	
 	 /**
-	  * Méthode pour prêter un livre à un individu
-	  * Ajoute à l'inventaire d'un emprunteur un livre associé à une date de rendu 
-	  * @param livre un objet de type Livre correspondant au livre prêté
-	  * @param emprunteur objet de type Emprunteur correspondant à l'individu qui emprunte le livre 
-	  * @param date la date à laquelle le livre doit être rendu
+	  * Mï¿½thode pour prÃªter un livre Ã  un individu
+	  * Ajoute Ã  l'inventaire d'un emprunteur un livre associÃ© Ã  une date de rendu 
+	  * @param livre un objet de type Livre correspondant au livre prÃªtÃ©
+	  * @param emprunteur objet de type Emprunteur correspondant Ã  l'individu qui emprunte le livre 
+	  * @param date la date Ã  laquelle le livre doit Ãªtre rendu
 	  */
 	public void preterLivre(Livre livre, Emprunteur emprunteur, LocalDate date) {
 		emprunteur.addEmprunt(livre, date);
@@ -125,10 +125,10 @@ public class Bibliothecaire {
 	}
 	
 	 /**
-	  * Méthode pour lister tous les emprunteurs en retard = les emprunteurs ayant
-	  * dans leur inventaire un ou plusieurs livres dont la date de rendu est dépassée
+	  * MÃ©thode pour lister tous les emprunteurs en retard = les emprunteurs ayant
+	  * dans leur inventaire un ou plusieurs livres dont la date de rendu est dÃ©passÃ©e
 	  * @return retards un objet HashMap associant un emprunteur (objet Emprunteur)
-	  * à la liste de ses livres (objets Livre) en retard
+	  * Ã  la liste de ses livres (objets Livre) en retard
 	  */
 	public HashMap<Emprunteur, ArrayList<Livre>> listerEmprunteursEnRetard() {
 		LocalDate aujourdhui = LocalDate.now();
@@ -151,9 +151,9 @@ public class Bibliothecaire {
 	}
 	
 	 /**
-	  * Méthode pour "relancer" un emprunteur en retard
-	  * Envoie un message à l'emprunteur en retard : ajoute à sa boîte de réception
-	  * (attribut messagerie) un message associé à l'intitulé "retard"
+	  * MÃ©thode pour "relancer" un emprunteur en retard
+	  * Envoie un message Ã  l'emprunteur en retard : ajoute Ã  sa boÃ®te de rÃ©ception
+	  * (attribut messagerie) un message associÃ© Ã  l'intitulÃ© "retard"
 	  */
 	public void RelancerEmprunteurEnRetard() {
 		HashMap<Emprunteur, ArrayList<Livre>> retards = listerEmprunteursEnRetard();
@@ -167,7 +167,7 @@ public class Bibliothecaire {
 	}
 
 	 /**
-	  * Méthode pour lister tous les livres du catalogue qui sont empruntés
+	  * MÃ©thode pour lister tous les livres du catalogue qui sont empruntÃ©s
 	  * @return livres une liste d'objets de type Livre correspondant aux livres
 	  * qui sont dans les inventaires des emprunteurs
 	  */
@@ -182,11 +182,11 @@ public class Bibliothecaire {
 	}
 	
 	 /**
-	  * Méthode pour lister tous les livres empruntés par un type d'emprunteur spécifique
-	  * (Permet notamment de lister tous les livres empruntés par des étudiants, 
-	  * de la classe EtudiantEmprunteur qui hérite de la classe Emprunteur)
-	  * Surcharge de la méthode listerLivresEmpruntes
-	  * @param cls une classe dérivée de la classe Emprunteur
+	  * MÃ©thode pour lister tous les livres empruntÃ©s par un type d'emprunteur spÃ©cifique
+	  * (Permet notamment de lister tous les livres empruntÃ©s par des ï¿½tudiants, 
+	  * de la classe EtudiantEmprunteur qui hÃ©rite de la classe Emprunteur)
+	  * Surcharge de la mÃ©thode listerLivresEmpruntes
+	  * @param cls une classe dÃ©rivÃ©e de la classe Emprunteur
 	  * @return livres une liste d'objets de type Livre 
 	  */
 	public ArrayList<Livre> listerLivresEmpruntes(Class<? extends Emprunteur> cls) {
@@ -202,11 +202,11 @@ public class Bibliothecaire {
 	}
 	
 	 /**
-	  * Méthode pour lister tous les livres d'un auteur qui sont empruntés
-	  * Surcharge de la méthode listerLivresEmpruntes
-	  * @param auteurFiltre un objet de type Auteur correspondant à l'auteur recherché 
-	  * @return livresAuteur une liste d'objets de type Livre, les livres écrits par
-	  * l'auteur recherché qui sont empruntés
+	  * MÃ©thode pour lister tous les livres d'un auteur qui sont empruntÃ©s
+	  * Surcharge de la mÃ©thode listerLivresEmpruntes
+	  * @param auteurFiltre un objet de type Auteur correspondant Ã  l'auteur recherchÃ© 
+	  * @return livresAuteur une liste d'objets de type Livre, les livres Ã©crits par
+	  * l'auteur recherchÃ© qui sont empruntÃ©s
 	  */
 	public ArrayList<Livre> listerLivresEmpruntes(Auteur auteurFiltre) {
 		ArrayList<Livre> livresAuteur = new ArrayList<Livre>();
@@ -219,11 +219,11 @@ public class Bibliothecaire {
 	}
 	
 	 /**
-	  * Méthode sélectionner un livre d'un thème spécifique
-	  * @param theme une chaîne de car. correspondant au thème recherché
-	  * @return choix un livre (objet Livre) sélectionné au hasard 
-	  * parmi les livres du catalogue qui correspondent au thème recherché
-	  * (si aucun livre ne correspond au thème : renvoie la valeur null)
+	  * MÃ©thode sÃ©lectionner un livre d'un thÃ¨me spÃ©cifique
+	  * @param theme une chaÃ®ne de car. correspondant au thÃ¨me recherchÃ©
+	  * @return choix un livre (objet Livre) sÃ©lectionnÃ© au hasard 
+	  * parmi les livres du catalogue qui correspondent au thÃ¨me recherchÃ©
+	  * (si aucun livre ne correspond au thÃ¨me : renvoie la valeur null)
 	  */
 	public Livre TrouverLivreSurUnTheme(String theme) {
 		ArrayList<Livre> livresTheme = listerLivres(theme);
@@ -238,10 +238,10 @@ public class Bibliothecaire {
 	}
 	
 	 /**
-	  * Méthode pour envoyer une amende à un retardataire
+	  * MÃ©thode pour envoyer une amende Ã  un retardataire
 	  * Ajoute au solde de l'emprunteur 2 euros pour chaque livre en retard 
-	  * (objet Livre de son inventaire dont la date de rendu est dépassée)
-	  * Le solde généré correspond à la somme qu'il doit à la bibliothèque
+	  * (objet Livre de son inventaire dont la date de rendu est dÃ©passÃ©e)
+	  * Le solde gÃ©nÃ©rÃ© correspond Ã  la somme qu'il doit Ã  la bibliothÃ¨que
 	  */
 	public void EnvoyerAmendeRetardaire() {
 		HashMap<Emprunteur, ArrayList<Livre>> retards = listerEmprunteursEnRetard();
@@ -251,11 +251,11 @@ public class Bibliothecaire {
 	}
 	
 	 /**
-	  * Méthode pour encaisser l'amende d'un retardataire
-	  * Transfère une somme du solde de l'emprunteur vers la caisse de la bibliothèque
+	  * MÃ©thode pour encaisser l'amende d'un retardataire
+	  * TransfÃ¨re une somme du solde de l'emprunteur vers la caisse de la bibliothÃ¨que
 	  * @param retardataire l'emprunteur en retard (objet Emprunteur) qui
 	  * paye son amende
-	  * @param versement nombre correspondant à la somme versée par l'emprunteur
+	  * @param versement nombre correspondant Ã  la somme versÃ©e par l'emprunteur
 	  */
 	public void EncaisserAmendeRetardaire(Emprunteur retardataire, double versement) {
 		retardataire.changeSolde(-versement);
