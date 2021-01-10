@@ -72,7 +72,11 @@ public class Bibliothecaire {
 	  * @return une liste d'objets de type Livre 
 	  */
 	public ArrayList<Livre> listerLivres(Auteur auteur) {
-		return getCatalogue().get(auteur);
+		ArrayList<Livre> listeLivres =  getCatalogue().get(auteur);
+		if (Objects.nonNull(listeLivres)) {
+			return listeLivres;
+		}
+		return new ArrayList<Livre>();
 	}
 	
 	 /**
@@ -183,7 +187,7 @@ public class Bibliothecaire {
 	
 	 /**
 	  * Méthode pour lister tous les livres empruntés par un type d'emprunteur spécifique
-	  * (Permet notamment de lister tous les livres empruntés par des �tudiants, 
+	  * (Permet notamment de lister tous les livres empruntés par des étudiants, 
 	  * de la classe EtudiantEmprunteur qui hérite de la classe Emprunteur)
 	  * Surcharge de la méthode listerLivresEmpruntes
 	  * @param cls une classe dérivée de la classe Emprunteur
